@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { Person } from 'src/app/shared/interfaces/person';
+import { PersonService } from 'src/app/shared/services/person.service';
 
 
 @Component({
@@ -9,27 +13,63 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class PersonIdentityComponent implements OnInit {
 
-  identityForm! : FormGroup;
+  identityForm!: FormGroup;
 
+  public person$ = new BehaviorSubject<Person | null>(null);
 
-  constructor(private fb : FormBuilder) { }
+  id!:number;
+
+  person!:Person;
+
+  constructor(
+    private _fb: FormBuilder,
+    private _personService: PersonService,
+    private _route: ActivatedRoute,
+    private _router: Router
+  ) {
+
+   }
 
   ngOnInit(): void {
-    this.identityForm = this.fb.group({
+
+    this._route.paramMap.subscribe(param => {
+      const personId = Number(param.get('id'));
+      this.id=personId;
+    })
+
+    //TODO: A voir comment afficher les valeurs pré-remplies
+    // this._personService.getPersonById(this.id).subscribe(data => {
+    //   // this.person = data;
+    //   // console.log(this.person.nom);
+    //   this.person$.next(data);
+    // });
+
+    this.identityForm = this._fb.group({
       nom: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      prenom:['', [Validators.required, Validators.minLength(2),Validators.maxLength(50) ]],
-      description:[''],
-      dateNaissance:['', Validators.required]
+      prenom: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      description: [''],
+      dateNaissance: ['', Validators.required],
+      id: [this.id]
     })
   }
 
-  submitForm(){
+  submitForm() {
     /**
      * vérifier validité du form,
      * faire un patch/put en bdd -> méthoe à créer dans le service
      * person.service
      */
-    console.log('Formulaire validé');
+     console.log(this.identityForm.value);
+    const p = { ...this.person, ...this.identityForm.value };
+    console.log(p);
+
+    if (this.identityForm.valid) {
+      this.person$ = this._personService.person$;
+      this._route.paramMap.subscribe(param => {
+        const personId = Number(param.get('id'));
+        this._personService.updateProfil(p, personId);
+      })
+    }
 
   }
 }

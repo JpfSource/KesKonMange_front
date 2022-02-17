@@ -13,5 +13,5 @@ export class Person {
   objectifCalorique!: number;
   activite!: string;
   besoinsCaloriques!: number;
-  id: number = 1;
+  id!: number ;
 }

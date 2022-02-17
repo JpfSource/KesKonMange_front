@@ -5,7 +5,6 @@
     <input type="text"
           class="form-control"
           id="nom"
-          placeholder="Entrer votre nom"
           formControlName="nom"
           [ngClass]="{'is-invalid':(identityForm.get('nom')!.touched ||
                                     identityForm.get('nom')!.dirty) &&
@@ -46,7 +45,11 @@
   </div>
   <div class="form-group">
     <label for="description">Description</label>
-    <input type="text" class="form-control" id="description" placeholder="Description">
+    <input type="text"
+          class="form-control"
+          id="description"
+          placeholder="Description"
+          formControlName="description">
   </div>
   <div class="form-group">
     <label for="dateNaissance">Né(e) le</label>

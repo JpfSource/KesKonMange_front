@@ -15,22 +15,22 @@ export class PersonProfilComponent implements OnInit {
 
   constructor(
     private _personService : PersonService,
-    private route: ActivatedRoute,
-    private router : Router
+    private _route: ActivatedRoute,
+    private _router : Router
   ) { }
 
   ngOnInit(): void {
-    this.person$ = this._personService.person$;
-    this.route.paramMap.subscribe(param => {
+    // this.person$ = this._personService.person$;
+    this._route.paramMap.subscribe(param => {
 
       const personId = Number(param.get('id'));
 
       if(personId != null && personId > 0) {
         console.log(personId);
-        this._personService.getPersonById(personId);
+        this._personService.getPersonById(personId).subscribe(data => this.person$.next(data));
       }
       else {
-        this.router.navigateByUrl("/home");
+        this._router.navigateByUrl("/home");
       }
     })
 
