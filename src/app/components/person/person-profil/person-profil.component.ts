@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Person } from 'src/app/shared/interfaces/person';
 import { PersonService } from 'src/app/shared/services/person.service';
@@ -15,7 +15,8 @@ export class PersonProfilComponent implements OnInit {
 
   constructor(
     private _personService : PersonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router : Router
   ) { }
 
   ngOnInit(): void {
@@ -23,8 +24,14 @@ export class PersonProfilComponent implements OnInit {
     this.route.paramMap.subscribe(param => {
 
       const personId = Number(param.get('id'));
-      console.log(personId);
-      this._personService.getPersonById(personId);
+
+      if(personId != null && personId > 0) {
+        console.log(personId);
+        this._personService.getPersonById(personId);
+      }
+      else {
+        this.router.navigateByUrl("/home");
+      }
     })
 
   }

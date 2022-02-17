@@ -10,6 +10,8 @@ import { PersonMorphoComponent } from './components/person/person-morpho/person-
 import { PersonIdentityComponent } from './components/person/person-identity/person-identity.component';
 import { MenuTabsComponent } from './components/menu-tabs/menu-tabs.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './components/home/home.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,12 +21,14 @@ import { HttpClientModule } from '@angular/common/http';
     PersonProfilComponent,
     PersonMorphoComponent,
     PersonIdentityComponent,
-    MenuTabsComponent
+    MenuTabsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
