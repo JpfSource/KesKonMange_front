@@ -9,10 +9,9 @@ import { Person } from '../interfaces/person';
 })
 export class PersonService {
 
-
   private _urlPerson = environment.urlApi + '/api/personnes';
 
-  public person$ = new BehaviorSubject<Person|null>(null);
+  public person$ = new BehaviorSubject<Person | null>(null);
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -30,22 +29,21 @@ export class PersonService {
     const url = this._urlPerson + '/' + personId;
 
     return this._http.get<Person>(url);
-    // .subscribe(data => this.person$.next(data));
-    // console.log('Connect to db');
+
   }
 
-  updateProfil(person:Person, personId:number) {
-    const url = this._urlPerson + '/' + personId;
-    console.log(url);
-    console.log(person);
+  /**
+   * Métode qui permet de mettre à jour les données du profil d'une personne dont l'id est passé en paramètre.
+   * @param person
+   * @param personId
+   */
+  updateProfil(person: Person, personId: number) {
+    const url = this._urlPerson + '/identite/' + personId;
 
-    this._http.put<Person>(url, person, this.httpOptions)
-    .subscribe( value=>{
-      console.log(value)});
-
-
-    // .subscribe(data => this.person$.next(data));
-    // console.log('Connect to db');
+    this._http.patch<Person>(url, person, this.httpOptions)
+      .subscribe(value => {
+        console.log(value)
+      });
   }
 
 }

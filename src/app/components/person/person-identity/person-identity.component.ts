@@ -26,31 +26,40 @@ export class PersonIdentityComponent implements OnInit {
     private _personService: PersonService,
     private _route: ActivatedRoute,
     private _router: Router
-  ) {
-
-   }
+  ) { }
 
   ngOnInit(): void {
+    this.initForm();
 
+  }
+  /**
+   * M
+   */
+  initForm(){
     this._route.paramMap.subscribe(param => {
       const personId = Number(param.get('id'));
       this.id=personId;
     })
 
-    //TODO: A voir comment afficher les valeurs pré-remplies
-    // this._personService.getPersonById(this.id).subscribe(data => {
-    //   // this.person = data;
-    //   // console.log(this.person.nom);
-    //   this.person$.next(data);
-    // });
+
+    this._personService.getPersonById(this.id).subscribe(data => {
+      this.person = data;
+      this.identityForm.controls['nom'].setValue(this.person.nom);
+      this.identityForm.controls['prenom'].setValue(this.person.prenom);
+      this.identityForm.controls['description'].setValue(this.person.description);
+      this.identityForm.controls['dateNaissance'].setValue(this.person.dateNaissance);
+      this.identityForm.controls['id'].setValue(this.id);
+      console.log(this.person.nom);
+      // this.person$.next(data);
+    });
 
     this.identityForm = this._fb.group({
       nom: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       prenom: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       description: [''],
       dateNaissance: ['', Validators.required],
-      id: [this.id]
-    })
+      id: ['']
+    });
   }
 
   submitForm() {

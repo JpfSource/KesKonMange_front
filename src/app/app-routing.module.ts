@@ -21,6 +21,22 @@ const routes: Routes = [
   {path:"home" , component: HomeComponent},
 ];
 
+// Routes testées par Steeve 18-02-2022
+// const routes: Routes = [
+//   { path: "", redirectTo: "home", pathMatch: 'full' },
+//   { path: "home", component: HomeComponent },
+//   { path: "person",
+//     children: [
+//       //permet d'avoir un seulrouter-outlet
+//       { path: ":id", component: PersonProfilComponent,
+//         children: [
+//         { path: "identity", component: PersonIdentityComponent },
+//         { path: "morphology", component: PersonMorphoComponent }
+//         ]},
+//     ]
+//   },
+// ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
