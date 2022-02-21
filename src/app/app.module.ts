@@ -11,7 +11,11 @@ import { PersonIdentityComponent } from './components/person/person-identity/per
 import { MenuTabsComponent } from './components/menu-tabs/menu-tabs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegisterComponent } from './components/user/register/register.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import { BoardUserComponent } from './components/user/board-user/board-user.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +26,18 @@ import { ReactiveFormsModule } from '@angular/forms';
     PersonMorphoComponent,
     PersonIdentityComponent,
     MenuTabsComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
+    BoardUserComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -27,7 +27,8 @@ export class PersonProfilComponent implements OnInit {
 
       if(personId != null && personId > 0) {
         console.log(personId);
-        this._personService.getPersonById(personId).subscribe(data => this.person$.next(data));
+        // this._personService.getPersonById(personId).subscribe(data => this.person$.next(data));
+        this._personService.getPersonById(personId);
       }
       else {
         this._router.navigateByUrl("/home");

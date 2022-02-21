@@ -7,13 +7,13 @@ import { PersonProfilComponent } from './components/person/person-profil/person-
 
 const routes: Routes = [
   {
-    path: "person/:id" ,
+    path: "person" ,
     children: [
     //permet d'avoir un seul router-outlet
-      {path: "", component: PersonProfilComponent},
+      {path: ":id", component: PersonProfilComponent},
       // {path: ":id", component: PersonProfilComponent},
-      {path: "identity", component: PersonIdentityComponent},
-      {path: "morphology", component: PersonMorphoComponent}
+      {path: ":id/identity", component: PersonIdentityComponent},
+      {path: ":id/morphology", component: PersonMorphoComponent}
     ],
   },
   // {path:"" , component: PersonProfilComponent},
