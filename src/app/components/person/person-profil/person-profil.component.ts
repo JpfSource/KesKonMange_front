@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { Person } from 'src/app/shared/interfaces/person';
 import { PersonService } from 'src/app/shared/services/person.service';
+import { Person } from 'src/app/shared/interfaces/person';
 
 @Component({
   selector: 'app-person-profil',
@@ -11,7 +10,7 @@ import { PersonService } from 'src/app/shared/services/person.service';
 })
 export class PersonProfilComponent implements OnInit {
 
-  public person$ = new BehaviorSubject<Person|null>(null);
+  public person?: Person | null;
 
   constructor(
     private _personService : PersonService,
@@ -20,21 +19,17 @@ export class PersonProfilComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.person$ = this._personService.person$;
     this._route.paramMap.subscribe(param => {
-
       const personId = Number(param.get('id'));
-
       if(personId != null && personId > 0) {
-        console.log(personId);
-        // this._personService.getPersonById(personId).subscribe(data => this.person$.next(data));
         this._personService.getPersonById(personId);
+        this._personService.person$.subscribe((p: Person | null) => {
+          this.person = p;
+        });
       }
       else {
         this._router.navigateByUrl("/home");
       }
-    })
-
+    });
   }
-
 }

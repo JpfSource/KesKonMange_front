@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -7,11 +7,11 @@ import { Person } from '../interfaces/person';
 @Injectable({
   providedIn: 'root'
 })
-export class PersonService {
+export class PersonService implements OnDestroy {
 
   private _urlPerson = environment.urlApi + '/api/personnes';
 
-  public person$ = new BehaviorSubject<Person | null>(null);
+  public person$ = new BehaviorSubject<Person>(new Person());
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,6 +20,12 @@ export class PersonService {
   constructor(
     private _http: HttpClient
   ) { }
+
+
+
+  ngOnDestroy(): void {
+    this.person$.unsubscribe();
+  }
 
   /**
    * Méthode qui permet d'avoir les données d'une personne dont l'id est passé en paramètre.
@@ -32,7 +38,6 @@ export class PersonService {
       .subscribe(person => {
         this.person$.next(person);
       });
-
   }
 
   /**
