@@ -4,6 +4,8 @@ import { HomeComponent } from './components/home/home.component';
 import { PersonIdentityComponent } from './components/person/person-identity/person-identity.component';
 import { PersonMorphoComponent } from './components/person/person-morpho/person-morpho.component';
 import { PersonProfilComponent } from './components/person/person-profil/person-profil.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegisterComponent } from './components/user/register/register.component';
 
 const routes: Routes = [
   {
@@ -19,6 +21,9 @@ const routes: Routes = [
   // {path:"" , component: PersonProfilComponent},
   {path:"" , redirectTo: "home", pathMatch:'full'},
   {path:"home" , component: HomeComponent},
+  {path:"signin", component:RegisterComponent},
+  {path:"login", component:LoginComponent},
+
 ];
 
 // Routes testées par Steeve 18-02-2022
