@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
     private _personService: PersonService,
     private _route: ActivatedRoute,
     private _router: Router,
-    private location: Location) { }
+) { }
   ngOnInit(): void {
 
     this.signinForm = this._fb.group({

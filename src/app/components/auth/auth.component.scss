@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  mat-card {
+    width: 100%;
+    min-width: 500px;
+    form {
+      display: flex;
+      flex-direction: column;
+      & > * {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthComponent } from './components/auth/auth.component';
 import { HomeComponent } from './components/home/home.component';
 import { PersonIdentityComponent } from './components/person/person-identity/person-identity.component';
 import { PersonMorphoComponent } from './components/person/person-morpho/person-morpho.component';
@@ -19,10 +20,11 @@ const routes: Routes = [
     ],
   },
   // {path:"" , component: PersonProfilComponent},
-  {path:"" , redirectTo: "home", pathMatch:'full'},
+
   {path:"home" , component: HomeComponent},
-  {path:"signin", component:RegisterComponent},
-  {path:"login", component:LoginComponent},
+  {path:"signin", component:AuthComponent},
+  {path:"login", component:AuthComponent},
+  {path:"" , redirectTo: "home", pathMatch:'full'},
 
 ];
 

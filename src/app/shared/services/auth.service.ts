@@ -12,7 +12,7 @@ import { Person } from '../interfaces/person';
  */
 export class AuthService {
 
-  private _urlAuth = environment.urlApi + '/api/auth';
+  private _urlAuth = environment.urlApi + '/api/utilisateurs';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
