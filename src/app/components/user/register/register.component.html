@@ -1,6 +1,4 @@
 
-<h1>Page d'enregistrement</h1>
-<!--
 <section class="vh-100" style="background-color: #eee;">
   <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -10,71 +8,101 @@
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign in</p>
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">{{ isSignupFormView? 'Inscription' : 'Connexion' }}</p>
 
-                <form class="mx-1 mx-md-4" >
+                <form class="mx-1 mx-md-4" [formGroup]="signinForm" (ngSubmit)="submitForm()" >
 
                    <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
+                    <div class="form-outline flex-fill mb-0" *ngIf="isSignupFormView" >
                       <label class="form-label" for="prenom">Prénom</label>
                       <input type="text" id="prenom" class="form-control" placeholder="Entrer votre prénom"
                         formControlName="prenom"
                         [ngClass]="{'is-invalid': (signinForm.get('prenom')!.touched || signinForm.get('prenom')!.dirty) && !signinForm.get('prenom')!.valid }" />
                       <span class="invalid-feedback">
                         <span *ngIf="signinForm.get('prenom')!.errors?.['required']">
-                          Please enter your first name.
+                          Veuillez entrer votre prénom.
                         </span>
                         <span *ngIf="signinForm.get('prenom')!.errors?.['minlength']">
-                          The first name must be longer than 3 characters.
+                          Le prénom doit avoir minimum 2 caractères.
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4" *ngIf="isSignupFormView">
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="nom">Nom</label>
+                      <input type="text" id="nom" class="form-control" formControlName="nom" placeholder="Entrer votre nom" [ngClass]="{'is-invalid': (signinForm.get('nom')!.touched ||
+                                        signinForm.get('nom')!.dirty) &&
+                                        !signinForm.get('nom')!.valid }" />
+                      <span class="invalid-feedback">
+                        <span *ngIf="hasErrors(signinForm.get('nom'), 'required')">
+                          Veuillez renseigner votre nom.
+                        </span>
+                        <span *ngIf="signinForm.get('nom')!.errors?.['minlength']">
+                          Le nom doit avoir minimum 2 caractères.
                         </span>
                       </span>
                     </div>
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <label class="form-label" for="nom">Nom</label>
-                      <input type="text" id="nom" class="form-control" />
-                    </div>
-                  </div>
-
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <label class="form-label" for="email">Email</label>
-                      <input type="email" id="email" class="form-control" />
+                      <input type="email" id="email"
+                            class="form-control"
+                            placeholder="Entrer votre email"
+                            formControlName="email"
+                            [ngClass]="{'is-invalid': (signinForm.get('email')!.touched ||
+                                                       signinForm.get('email')!.dirty) &&
+                                                       !signinForm.get('email')!.valid }"/>
+                      <span class="invalid-feedback">
+                        <span *ngIf="hasErrors(signinForm.get('email'), 'required')">
+                          Veuillez renseigner votre email.
+                        </span>
+                        <span *ngIf="hasErrors(signinForm.get('email'), 'email')">
+                          Veuillez entrer un email valide.
+                        </span>
+                      </span>
                     </div>
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <label class="form-label" for="form3Example3c">Confirmation Email</label>
-                      <input type="email" id="form3Example3c" class="form-control" />
+                      <label class="form-label" for="password">Mot de passe</label>
+                      <input type="password" id="password" class="form-control"
+                            formControlName="pwd"
+                            placeholder="Entrer votre mot de passe"
+                            [ngClass]="{'is-invalid': (signinForm.get('pwd')!.touched ||
+                                                       signinForm.get('pwd')!.dirty) &&
+                                                       !signinForm.get('pwd')!.valid }"/>
+                      <span class="invalid-feedback">
+                        <span *ngIf="hasErrors(signinForm.get('pwd'), 'required')">
+                          Veuillez renseigner votre email.
+                        </span>
+                        <span *ngIf="signinForm.get('pwd')!.errors?.['minlength']">
+                          Le mot de passe doit avoir minimum 4 caractères.
+                        </span>
+                      </span>
                     </div>
                   </div>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <label class="form-label" for="form3Example4c">Password</label>
-                      <input type="password" id="form3Example4c" class="form-control" />
-                    </div>
-                  </div>
-
-                  <div class="form-check d-flex justify-content-center mb-5">
+                  <!-- <div class="form-check d-flex justify-content-center mb-5" *ngIf="isSignupFormView">
                     <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
                     <label class="form-check-label" for="form2Example3">
-                      I agree all statements in <a href="#!">Terms of service</a>
+                      J'accepte les conditions d'utilisation <a href="" disabled>CDU</a>
                     </label>
-                  </div>
+                  </div> -->
+
+                  <span class="invalid-feedback">
+                    <span *ngIf="error">
+                      {{error}}
+                    </span>
+                  </span>
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="button" class="btn btn-primary btn-lg">Register</button>
+                    <button type="submit" class="btn btn-dark btn-lg" [disabled]="!signinForm.valid">Valider</button>
                   </div>
-
                 </form>
 
               </div>
@@ -89,4 +117,4 @@
       </div>
     </div>
   </div>
-</section> -->
+</section>

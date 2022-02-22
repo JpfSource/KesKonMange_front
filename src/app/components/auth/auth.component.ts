@@ -12,24 +12,18 @@ import { PersonService } from 'src/app/shared/services/person.service';
 })
 export class AuthComponent implements OnInit {
 
-  form: FormGroup = this._fb.group({
-    // prenom: ['', [Validators.required, Validators.minLength(2)]],
-    // nom: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    email: [''],
-    // confirmEmail: ['', Validators.required],
-    password:['', Validators.required],
-  });
-
+  signinForm!: FormGroup;
   person?: Person | null;
 
   isSignupFormView = false;
 
   isSuccessful = false;
   isSignUpFailed = false;
-  error!: string;
+  errorMessage = '';
+  error!:string;
 
   constructor(
-    private authService: AuthService,
+    private _authService: AuthService,
     private _fb: FormBuilder,
     private _personService: PersonService,
     private _route: ActivatedRoute,
@@ -37,34 +31,37 @@ export class AuthComponent implements OnInit {
 ) { }
   ngOnInit(): void {
 
-    if (this._route.snapshot.routeConfig?.path == 'signup') {
-      this.form.addControl('nom', this._fb.control('', Validators.required));
-      this.form.addControl('prenom', this._fb.control('', Validators.required));
+    this.signinForm = this._fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      pwd:['', [Validators.required, Validators.minLength(4)]],
+    });
+
+    if (this._route.snapshot.routeConfig?.path == 'signin') {
+      this.signinForm.addControl('prenom', this._fb.control('', [Validators.required, Validators.minLength(2)]));
+      this.signinForm.addControl('nom', this._fb.control('', [Validators.required, Validators.minLength(2)]));
       this.isSignupFormView = true;
     }
-
   }
+
   submitForm(): void {
-    console.log("form:", this.form.value);
-    console.log("person", this.person);
+    if (this.signinForm.valid) {
+      const p = {...this.person, ...this.signinForm.value}
+      console.log(p);
+      if (this.isSignupFormView) {
+        this._authService.signin(p).subscribe({
+            next: () => this._router.navigateByUrl('/login'),
+            error: err => this.error = err?.error || 'Il y a eu un problème...',
+          });
 
-
-    const p: any = {...this.person, ...this.form}
-    console.log("const p: ", p);
-
-    // const p: any = {...this.person, ...this.form}
-    // // const { username, email, password } = this.form;
-    // this.authService.register(p).subscribe(
-    //   data => {
-    //     console.log(data);
-    //     this.isSuccessful = true;
-    //     this.isSignUpFailed = false;
-    //   },
-    //   err => {
-    //     this.errorMessage = err.error.message;
-    //     this.isSignUpFailed = true;
-    //   }
-    // );
+      } else {
+        this._authService
+          .login(p)
+          .subscribe({
+            next: () => this._router.navigateByUrl('/person'),
+            error: err => this.error = err?.error || 'Cet utilisateur n\'existe pas',
+          });
+      }
+    }
   }
 
   hasErrors(control: AbstractControl|null, key: string) {
@@ -74,10 +71,5 @@ export class AuthComponent implements OnInit {
     return null;
   }
 
-  onSaveComplete(): void {
-    // Reset the form to clear the flags
-    this.form.reset();
-    // this._router.navigate(['/login']);
-  }
 
 }

@@ -22,11 +22,17 @@ const routes: Routes = [
   // {path:"" , component: PersonProfilComponent},
 
   {path:"home" , component: HomeComponent},
-  {path:"signin", component:AuthComponent},
-  {path:"login", component:AuthComponent},
+  { path: "signin", component: AuthComponent },
+  { path: "login", component: AuthComponent },
   {path:"" , redirectTo: "home", pathMatch:'full'},
 
 ];
+
+// route pour page unique
+// {path:"home" , component: HomeComponent},
+// {path:"signin", component:AuthComponent},
+// {path:"login", component:AuthComponent},
+// {path:"" , redirectTo: "home", pathMatch:'full'}
 
 // Routes testées par Steeve 18-02-2022
 // const routes: Routes = [
