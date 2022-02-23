@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { ErrorHandler, Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, ErrorNotification, Observable, of, ReplaySubject, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Person } from '../interfaces/person';
 
@@ -12,6 +12,8 @@ import { Person } from '../interfaces/person';
  */
 export class AuthService {
 
+
+
   private _urlAuth = environment.urlApi + '/api/utilisateurs';
 
   public user$ = new BehaviorSubject<Person|null>(null);
@@ -21,7 +23,12 @@ public isLoggedIn$ = new ReplaySubject<boolean>(1);
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private _http : HttpClient) { }
+  constructor(private _http : HttpClient,
+    ) { }
+
+    handleError(error: any){
+      return throwError(error)
+    }
 
   /**
    * Méthode POST de l'Utilisateur lors de son identification.
@@ -34,10 +41,12 @@ public isLoggedIn$ = new ReplaySubject<boolean>(1);
                         tap(person => {
                           this.user$.next(person);
                           this.isLoggedIn$.next(!!person);
-                        })
+                        }),
+                        catchError(this.handleError)
                       );
 
   }
+
 
   /**
    * Méthode POST de l'Utilisateur lors de l'enregistrement.

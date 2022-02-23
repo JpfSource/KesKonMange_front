@@ -46,7 +46,7 @@ export class AuthComponent implements OnInit {
   submitForm(): void {
     if (this.signinForm.valid) {
       const p = {...this.person, ...this.signinForm.value}
-      console.log(p);
+      // console.log(p);
       if (this.isSignupFormView) {
         this._authService.signin(p).subscribe({
             next: () => this._router.navigateByUrl('/login'),
@@ -58,7 +58,11 @@ export class AuthComponent implements OnInit {
           .login(p)
           .subscribe({
             next: () => this._router.navigateByUrl('/person'),
-            error: err => this.error = err?.error || 'Cet utilisateur n\'existe pas',
+            error: err => {
+              console.log(err.error),
+              this.error = err.error
+              this.errorMessage=err.error
+            }
           });
       }
     }
