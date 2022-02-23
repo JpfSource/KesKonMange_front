@@ -17,8 +17,7 @@ import { RegisterComponent } from './components/user/register/register.component
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { BoardUserComponent } from './components/user/board-user/board-user.component';
 import { AuthComponent } from './components/auth/auth.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './shared/modules/material.module';
+
 
 @NgModule({
   declarations: [
@@ -41,9 +40,8 @@ import { MaterialModule } from './shared/modules/material.module';
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MaterialModule
+    FormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
