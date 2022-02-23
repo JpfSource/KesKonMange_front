@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Person } from 'src/app/shared/models/person';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { PersonService } from 'src/app/shared/services/person.service';
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 
 @Component({
   selector: 'app-auth',
@@ -17,8 +18,11 @@ export class AuthComponent implements OnInit {
 
   isSignupFormView = false;
 
+  //variable gestion token du formulaire login
+  isLoggedIn = false;
+  isLoginFailed = false
   isSuccess = false;
-  isSignUpFailed = false;
+
   errorMessage = '';
   error!:string;
 
@@ -28,8 +32,12 @@ export class AuthComponent implements OnInit {
     private _personService: PersonService,
     private _route: ActivatedRoute,
     private _router: Router,
+    private _tokenStorage:TokenStorageService
 ) { }
   ngOnInit(): void {
+    if(this._tokenStorage.getToken()){
+      this.isLoggedIn = true;
+    }
 
     this.signinForm = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -57,11 +65,29 @@ export class AuthComponent implements OnInit {
         this._authService
           .login(p)
           .subscribe({
-            next: () => this._router.navigateByUrl('/person'),
+            next: (data =>{
+              this._tokenStorage.saveToken(data.accessToken);
+              this._tokenStorage.saveUser(data);
+              this.isLoginFailed = false;
+              this.isLoggedIn = true;
+              this._router.navigateByUrl('/profil')
+            }),
             error: err => {
-              this.error = err.error
+              this.error = err.error;
+              this.isLoginFailed = true;
             }
           });
+
+
+        //fonctionne sans le JWT
+        // this._authService
+        //   .login(p)
+        //   .subscribe({
+        //     next: () => this._router.navigateByUrl('/person'),
+        //     error: err => {
+        //       this.error = err.error
+        //     }
+        //   });
       }
     }
   }

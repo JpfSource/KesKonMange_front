@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PersonIdentityComponent } from './components/person/person-identity/person-identity.component';
 import { PersonMorphoComponent } from './components/person/person-morpho/person-morpho.component';
 import { PersonProfilComponent } from './components/person/person-profil/person-profil.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
 
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path:"home" , component: HomeComponent},
   { path: "signin", component: AuthComponent },
   { path: "login", component: AuthComponent },
+  {path:"profil", component:ProfileComponent},
   {path:"" , redirectTo: "home", pathMatch:'full'},
 
 ];
