@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Person } from 'src/app/shared/interfaces/person';
+import { Person } from 'src/app/shared/models/person';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { PersonService } from 'src/app/shared/services/person.service';
 
@@ -17,7 +17,7 @@ export class AuthComponent implements OnInit {
 
   isSignupFormView = false;
 
-  isSuccessful = false;
+  isSuccess = false;
   isSignUpFailed = false;
   errorMessage = '';
   error!:string;
@@ -49,7 +49,7 @@ export class AuthComponent implements OnInit {
       // console.log(p);
       if (this.isSignupFormView) {
         this._authService.signin(p).subscribe({
-            next: () => this._router.navigateByUrl('/login'),
+            next: () => {this._router.navigateByUrl('/login'); this.isSuccess=true;},
             error: err => this.error = err?.error || 'Il y a eu un problème...',
           });
 
@@ -59,9 +59,7 @@ export class AuthComponent implements OnInit {
           .subscribe({
             next: () => this._router.navigateByUrl('/person'),
             error: err => {
-              console.log(err.error),
               this.error = err.error
-              this.errorMessage=err.error
             }
           });
       }

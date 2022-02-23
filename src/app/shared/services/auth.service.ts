@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { ErrorHandler, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, ErrorNotification, Observable, of, ReplaySubject, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Person } from '../interfaces/person';
+import { Person } from '../models/person';
 
 @Injectable({
   providedIn: 'root'
