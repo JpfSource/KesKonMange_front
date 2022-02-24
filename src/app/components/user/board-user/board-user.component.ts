@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Person } from 'src/app/shared/models/person';
+import { PersonService } from 'src/app/shared/services/person.service';
 
 @Component({
   selector: 'app-board-user',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./board-user.component.scss']
 })
 export class BoardUserComponent implements OnInit {
+  persons!: Person[];
 
-  constructor() { }
+  constructor(
+    private personService: PersonService
+  ) { }
 
   ngOnInit(): void {
+    this.personService.getPersonAll().subscribe({
+     next: (persons => {
+      this.persons = persons;
+    }),
+    error: err => {
+      this.persons = JSON.parse(err.error).message;
+    }
+  });
   }
+
 
 }

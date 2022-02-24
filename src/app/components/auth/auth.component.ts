@@ -70,7 +70,7 @@ export class AuthComponent implements OnInit {
               this._tokenStorage.saveUser(data);
               this.isLoginFailed = false;
               this.isLoggedIn = true;
-              this._router.navigateByUrl('/profil')
+              this._router.navigateByUrl('/user')
             }),
             error: err => {
               this.error = err.error;

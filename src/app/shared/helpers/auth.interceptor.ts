@@ -15,6 +15,8 @@ intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
   const token = this.token.getToken();
   if (token != null) {
     authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+    console.log(authReq.headers);
+
   }
   return next.handle(authReq);
 }

@@ -3,6 +3,7 @@ import { ErrorHandler, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, ErrorNotification, Observable, of, ReplaySubject, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Person } from '../models/person';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,12 @@ export class AuthService {
   public user$ = new BehaviorSubject<Person|null>(null);
 public isLoggedIn$ = new ReplaySubject<boolean>(1);
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+  // httpOptions = {
+  //   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  // };
 
   constructor(private _http : HttpClient,
+    private tokenStorage: TokenStorageService
     ) { }
 
     handleError(error: any){
@@ -47,6 +49,15 @@ public isLoggedIn$ = new ReplaySubject<boolean>(1);
 
   }
 
+  textHeader = 'Bearer '+ this.tokenStorage.getToken()!;
+  httpOptions = {
+    headers: new HttpHeaders({ 'Authorization':  this.textHeader})
+  };
+
+  checkIfUserIsConnected(){
+    //créer une route coté serveur, il reçoit un token et vérifie s'il existe
+
+  }
 
   /**
    * Méthode POST de l'Utilisateur lors de l'enregistrement.
