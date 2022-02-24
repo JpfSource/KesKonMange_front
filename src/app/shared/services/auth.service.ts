@@ -26,7 +26,11 @@ public isLoggedIn$ = new ReplaySubject<boolean>(1);
 
   constructor(private _http : HttpClient,
     private tokenStorage: TokenStorageService
-    ) { }
+    ) {
+      setTimeout(() => {
+        this.checkIfUserIsConnected();
+      }, 10000);
+     }
 
     handleError(error: any){
       return throwError(error)
@@ -56,7 +60,9 @@ public isLoggedIn$ = new ReplaySubject<boolean>(1);
 
   checkIfUserIsConnected(){
     //créer une route coté serveur, il reçoit un token et vérifie s'il existe
-
+    return this._http.get(this._urlAuth + "/connected", this.httpOptions).subscribe( resp => { this.isLoggedIn$.next(!!resp)
+      console.log(!!resp)
+    })
   }
 
   /**

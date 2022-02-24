@@ -35,6 +35,7 @@ export class PersonService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.person$.unsubscribe();
+    
   }
 
   public getPersonAll() {

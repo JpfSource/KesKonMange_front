@@ -7,6 +7,7 @@ import { PersonMorphoComponent } from './components/person/person-morpho/person-
 import { PersonProfilComponent } from './components/person/person-profil/person-profil.component';
 import { BoardUserComponent } from './components/user/board-user/board-user.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 
 
@@ -27,7 +28,7 @@ const routes: Routes = [
   { path: "signin", component: AuthComponent },
   { path: "login", component: AuthComponent },
   {path:"profil", component:ProfileComponent},
-  {path:"user", component:BoardUserComponent},
+  {path:"user", canActivate:[AuthGuard], component:BoardUserComponent},
   {path:"" , redirectTo: "home", pathMatch:'full'},
 
 ];
