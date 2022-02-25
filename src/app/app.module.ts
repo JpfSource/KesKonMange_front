@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,10 +12,10 @@ import { MenuTabsComponent } from './components/menu-tabs/menu-tabs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './components/user/login/login.component';
-import { RegisterComponent } from './components/user/register/register.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { BoardUserComponent } from './components/user/board-user/board-user.component';
+import { AuthComponent } from './components/auth/auth.component';
+
 
 @NgModule({
   declarations: [
@@ -27,10 +27,9 @@ import { BoardUserComponent } from './components/user/board-user/board-user.comp
     PersonIdentityComponent,
     MenuTabsComponent,
     HomeComponent,
-    LoginComponent,
-    RegisterComponent,
     ProfileComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

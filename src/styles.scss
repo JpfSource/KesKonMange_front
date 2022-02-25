@@ -2,5 +2,8 @@
 
 body
 {
-    background: linear-gradient(135deg, #fff3b0, rgb(245, 244, 241));
+    background-color: #fff;
+  // background: linear-gradient(135deg, #fff3b0, rgb(245, 244, 241));
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

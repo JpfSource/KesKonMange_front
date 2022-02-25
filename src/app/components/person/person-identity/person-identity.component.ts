@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Person } from 'src/app/shared/interfaces/person';
+import { Person } from 'src/app/shared/models/person';
 import { PersonService } from 'src/app/shared/services/person.service';
 import { Location } from '@angular/common';
 
