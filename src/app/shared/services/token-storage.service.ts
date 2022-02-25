@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
 
 
 const TOKEN_KEY = 'auth-token';
@@ -8,11 +9,11 @@ const USER_KEY = 'auth-user';
   providedIn: 'root'
 })
 /**
- * Classe qui manage le token et récupère les informations sur l'utilisateur
+ * Classe qui manage le token et récupère les informations sur l'utilisateur.
  */
 export class TokenStorageService {
 
-  constructor() { }
+  constructor( ) { }
   signOut(): void {
     window.sessionStorage.clear();
   }

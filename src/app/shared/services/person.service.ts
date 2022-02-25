@@ -25,21 +25,20 @@ export class PersonService implements OnDestroy {
     headers: new HttpHeaders({ 'Authorization':  this.textHeader})
   };
 
-
   constructor(
     private _http: HttpClient,
     private tokenStorage: TokenStorageService
   ) { }
 
-
-
   ngOnDestroy(): void {
     this.person$.unsubscribe();
-    
   }
 
+  /**
+   * Méthode qui retourne toutes les personnes présente en BdD.
+   * @returns
+   */
   public getPersonAll() {
-    // console.log(this.tokenService.getToken.toString);
    return this._http.get<Person[]>(this._urlPerson+"/all", this.httpOptions)
   }
 
@@ -62,9 +61,7 @@ export class PersonService implements OnDestroy {
    * @param personId
    */
   updateProfil(person: Person) {
-
     const url = this._urlPerson + '/identite/' + person.id;
-
     this._http.patch<Person>(url, person)
       .subscribe(value => {
         this.person$.next(value);

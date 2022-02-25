@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Person } from 'src/app/shared/models/person';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { PersonService } from 'src/app/shared/services/person.service';
 
 @Component({
@@ -11,7 +13,9 @@ export class BoardUserComponent implements OnInit {
   persons!: Person[];
 
   constructor(
-    private personService: PersonService
+    private personService: PersonService,
+    private authService : AuthService,
+    private _router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -25,5 +29,10 @@ export class BoardUserComponent implements OnInit {
   });
   }
 
+  logout(){
+    this.authService.logout();
+    this._router.navigateByUrl('/login');
+
+  }
 
 }

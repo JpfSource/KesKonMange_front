@@ -24,7 +24,7 @@ export class AuthComponent implements OnInit {
   isSuccess = false;
 
   errorMessage = '';
-  error!:string;
+  error!: string;
 
   constructor(
     private _authService: AuthService,
@@ -32,16 +32,17 @@ export class AuthComponent implements OnInit {
     private _personService: PersonService,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _tokenStorage:TokenStorageService
-) { }
+    private _tokenStorage: TokenStorageService
+  ) { }
+  
   ngOnInit(): void {
-    if(this._tokenStorage.getToken()){
+    if (this._tokenStorage.getToken()) {
       this.isLoggedIn = true;
     }
 
     this.signinForm = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
-      pwd:['', [Validators.required, Validators.minLength(4)]],
+      pwd: ['', [Validators.required, Validators.minLength(4)]],
     });
 
     if (this._route.snapshot.routeConfig?.path == 'signin') {
@@ -53,21 +54,24 @@ export class AuthComponent implements OnInit {
 
   submitForm(): void {
     if (this.signinForm.valid) {
-      const p = {...this.person, ...this.signinForm.value}
-      // console.log(p);
+      const p = { ...this.person, ...this.signinForm.value }
       if (this.isSignupFormView) {
         this._authService.signin(p).subscribe({
-            next: () => {this._router.navigateByUrl('/login'); this.isSuccess=true;},
-            error: err => this.error = err?.error || 'Il y a eu un problème...',
-          });
+          next: (() => {
+            this.isSuccess = true;
+            this._router.navigateByUrl('/login');
+          }),
+          error: err => this.error = err?.error || 'Il y a eu un problème...',
+        });
 
       } else {
         this._authService
           .login(p)
           .subscribe({
-            next: (data =>{
+            next: (data => {
               this._tokenStorage.saveToken(data.accessToken);
               this._tokenStorage.saveUser(data);
+
               this.isLoginFailed = false;
               this.isLoggedIn = true;
               this._router.navigateByUrl('/user')
@@ -78,21 +82,11 @@ export class AuthComponent implements OnInit {
             }
           });
 
-
-        //fonctionne sans le JWT
-        // this._authService
-        //   .login(p)
-        //   .subscribe({
-        //     next: () => this._router.navigateByUrl('/person'),
-        //     error: err => {
-        //       this.error = err.error
-        //     }
-        //   });
       }
     }
   }
 
-  hasErrors(control: AbstractControl|null, key: string) {
+  hasErrors(control: AbstractControl | null, key: string) {
     if (control && control.errors) {
       return control.errors[key];
     }
