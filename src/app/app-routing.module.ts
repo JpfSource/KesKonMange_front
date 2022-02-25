@@ -17,12 +17,10 @@ const routes: Routes = [
     children: [
     //permet d'avoir un seul router-outlet
       {path: ":id", component: PersonProfilComponent},
-      // {path: ":id", component: PersonProfilComponent},
       {path: ":id/identity", component: PersonIdentityComponent},
       {path: ":id/morphology", component: PersonMorphoComponent}
     ],
   },
-  // {path:"" , component: PersonProfilComponent},
 
   {path:"home" , component: HomeComponent},
   { path: "signin", component: AuthComponent },
@@ -32,28 +30,6 @@ const routes: Routes = [
   {path:"" , redirectTo: "home", pathMatch:'full'},
 
 ];
-
-// route pour page unique
-// {path:"home" , component: HomeComponent},
-// {path:"signin", component:AuthComponent},
-// {path:"login", component:AuthComponent},
-// {path:"" , redirectTo: "home", pathMatch:'full'}
-
-// Routes testées par Steeve 18-02-2022
-// const routes: Routes = [
-//   { path: "", redirectTo: "home", pathMatch: 'full' },
-//   { path: "home", component: HomeComponent },
-//   { path: "person",
-//     children: [
-//       //permet d'avoir un seulrouter-outlet
-//       { path: ":id", component: PersonProfilComponent,
-//         children: [
-//         { path: "identity", component: PersonIdentityComponent },
-//         { path: "morphology", component: PersonMorphoComponent }
-//         ]},
-//     ]
-//   },
-// ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
