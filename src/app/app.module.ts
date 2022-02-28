@@ -15,6 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { BoardUserComponent } from './components/user/board-user/board-user.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { PersonPlatsComponent } from './components/plats/person-plats/person-plats.component';
+import { ItemPlatComponent } from './components/plats/item-plat/item-plat.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { AuthComponent } from './components/auth/auth.component';
     HomeComponent,
     ProfileComponent,
     BoardUserComponent,
-    AuthComponent
+    AuthComponent,
+    PersonPlatsComponent,
+    ItemPlatComponent
   ],
   imports: [
     BrowserModule,

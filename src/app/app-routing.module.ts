@@ -5,6 +5,8 @@ import { HomeComponent } from './components/home/home.component';
 import { PersonIdentityComponent } from './components/person/person-identity/person-identity.component';
 import { PersonMorphoComponent } from './components/person/person-morpho/person-morpho.component';
 import { PersonProfilComponent } from './components/person/person-profil/person-profil.component';
+import { ItemPlatComponent } from './components/plats/item-plat/item-plat.component';
+import { PersonPlatsComponent } from './components/plats/person-plats/person-plats.component';
 import { BoardUserComponent } from './components/user/board-user/board-user.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
@@ -15,13 +17,18 @@ const routes: Routes = [
   {
     path: "person" ,
     children: [
-    //permet d'avoir un seul router-outlet
-      {path: ":id", component: PersonProfilComponent},
-      {path: ":id/identity", component: PersonIdentityComponent},
-      {path: ":id/morphology", component: PersonMorphoComponent}
+      {path: ":id", component: PersonProfilComponent,
+      children: [
+        {path: "identity", component: PersonIdentityComponent},
+        {path: "morphology", component: PersonMorphoComponent}]
+      },
+      {path: ":id/person-plats", component: PersonPlatsComponent},
     ],
   },
-
+  {path: "plat",
+    children: [
+      {path: ":id", component: ItemPlatComponent}
+    ]},
   {path:"home" , component: HomeComponent},
   { path: "signin", component: AuthComponent },
   { path: "login", component: AuthComponent },
