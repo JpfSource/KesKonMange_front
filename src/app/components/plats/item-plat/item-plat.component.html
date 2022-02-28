@@ -1,0 +1,23 @@
+<table class="table table-bordered tablePlatModif">
+  <thead>
+    <tr>
+
+      <th >Libellé</th>
+      <th >Aliments</th>
+      <th >Aliments</th>
+      <th >Type de plat</th>
+      <th >Nutri Score</th>
+      <th >Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="plat">
+      <td>{{ plat?.libellePlat }} &nbsp;</td>
+      <td>Mark</td>
+      <td>Mark</td>
+      <td>{{ plat?.typePlatLibelle }}</td>
+      <td> Nutri Score</td>
+      <td> <button class="btn btn-danger">Supprimer</button></td>
+    </tr>
+  </tbody>
+</table>

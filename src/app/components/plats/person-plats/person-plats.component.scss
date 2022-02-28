@@ -1,0 +1,44 @@
+.entete {
+  position: relative;
+  margin-bottom: 9%;
+  margin-top: 2%;
+}
+
+.imgEntete img
+{
+  display: flex;
+  width: 200px;
+  height: auto;
+  border-radius: 30%;
+}
+
+button {
+  margin: 10px;
+}
+
+.nameEntete {
+  position: relative;
+  color: aliceblue;
+  margin: 0 auto;
+  width: fit-content;
+  height: fit-content;
+  margin-top: -20%;
+  padding: 8px;
+  border-radius: 20%;
+  background-color: rgba(130, 182, 145, 0.952);
+  margin-left: 35%;
+  z-index: 1;
+}
+.nameEntete h3 {
+  font-size: 2.5rem;
+  padding: 20px;
+}
+.nameEntete p {
+  font-size: 1.5rem;
+  padding: 0 20px 0 30px;
+}
+
+.plats {
+  position: relative;
+  margin-top: 10%;
+}
