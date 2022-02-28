@@ -15,6 +15,7 @@ import { ProfileComponent } from './components/user/profile/profile.component';
 import { BoardUserComponent } from './components/user/board-user/board-user.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { PersonComponent } from './components/person/person.component';
+import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { PersonComponent } from './components/person/person.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,12 +12,11 @@ import { PersonComponent } from './components/person/person.component';
 const routes: Routes = [
   {
     path: "person" ,
+    canActivate:[AuthGuard],
+    component: PersonComponent,
     children: [
-      {path: ":id", component: PersonComponent,
-      children: [
-        {path: "identity", component: PersonIdentityComponent},
-        {path: "morphology", component: PersonMorphologyComponent}]
-      },
+      {path: "identity", component: PersonIdentityComponent},
+      {path: "morphology", component: PersonMorphologyComponent}
     ],
   },
   {path:"" , redirectTo: "home", pathMatch:'full'},
@@ -25,7 +24,7 @@ const routes: Routes = [
   { path: "signin", component: AuthComponent },
   { path: "login", component: AuthComponent },
   {path:"profil", component:ProfileComponent},
-  {path:"user", canActivate:[AuthGuard], component:BoardUserComponent},
+  //{path:"user", canActivate:[AuthGuard], component:BoardUserComponent},
   {path:"" , redirectTo: "home", pathMatch:'full'},
 
 ];

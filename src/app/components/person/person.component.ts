@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from 'src/app/shared/services/person.service';
 import { Person } from 'src/app/shared/models/person';
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 
 @Component({
   selector: 'app-person',
@@ -15,7 +16,8 @@ export class PersonComponent implements OnInit {
   constructor(
     private _personService : PersonService,
     private _route: ActivatedRoute,
-    private _router : Router
+    private _router : Router,
+    private _tokenStorage: TokenStorageService
   ) { }
 
   getPrenomNom(){
@@ -28,7 +30,8 @@ export class PersonComponent implements OnInit {
     })
 
     this._route.paramMap.subscribe(param => {
-      const personId = Number(param.get('id'));
+      //const personId = Number(param.get('id'));
+      const personId = this._tokenStorage.getUser().id;
       if(personId != null && personId > 0) {
         this._personService.getPersonById(personId)
         .subscribe((p: Person | null) => {     
@@ -36,7 +39,6 @@ export class PersonComponent implements OnInit {
         });
       }
       else {
-
         this._router.navigateByUrl("/home");
       }
     });

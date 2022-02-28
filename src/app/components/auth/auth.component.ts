@@ -74,7 +74,7 @@ export class AuthComponent implements OnInit {
 
               this.isLoginFailed = false;
               this.isLoggedIn = true;
-              this._router.navigateByUrl('/user')
+              this._router.navigateByUrl('/person')
             }),
             error: err => {
               this.error = err.error;
