@@ -18,6 +18,7 @@ export class PersonPlatsComponent implements OnInit {
   public plats$ = new BehaviorSubject<Plat [] | any>([]);
   platsFiltres!: Plat[];
   platId!: number;
+  message!: string;
 
   constructor(
     private _personService : PersonService,
@@ -52,16 +53,15 @@ export class PersonPlatsComponent implements OnInit {
 
   public deletePlat(id: any): void{
     this._platService.deletePlat(id).subscribe(() => {
+      this.message = "Plat supprimé avec succès !"
       this._platService.findAll().subscribe(plats => {
         this.plats$.next(plats);
         this.platsFiltres = this.plats$.value;
         console.log(plats);
     });
+    setTimeout(()=> this.message = "", 2500);
   });
 }
-
-
-
 
   /**
    * Methode qui permet de filtrer les plats en fonctions du type de plat renseigné
