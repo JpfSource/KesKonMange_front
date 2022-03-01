@@ -4,6 +4,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Person } from '../models/person';
 import { TokenStorageService } from './token-storage.service';
+import { UserService } from './user.service';
 
 // const httpOptions = {
 //   headers: new HttpHeaders( {'Content-Type': 'application/json'} )
@@ -27,7 +28,8 @@ export class PersonService implements OnDestroy {
 
   constructor(
     private _http: HttpClient,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private userService: UserService
   ) { }
 
   ngOnDestroy(): void {
@@ -39,7 +41,8 @@ export class PersonService implements OnDestroy {
    * @returns
    */
   public getPersonAll() {
-   return this._http.get<Person[]>(this._urlPerson+"/all", this.httpOptions)
+    const emailCreateur = this.userService.decodedToken.email;
+   return this._http.get<Person[]>(this._urlPerson+"/all/" + emailCreateur, this.httpOptions)
   }
 
   /**

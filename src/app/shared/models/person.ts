@@ -18,4 +18,5 @@ export class Person {
   pwd?: string;
   role?: string;
   roleLibelle?: string;
+  emailCreateur?: string;
 }

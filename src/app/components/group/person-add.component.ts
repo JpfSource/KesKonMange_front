@@ -29,13 +29,13 @@ export class PersonAddComponent implements OnInit {
       prenom: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
       dateNaissance: ['', Validators.required],
-      email:[''],
-      genre: ['', [Validators.required]],
-      poids: ['', [Validators.required, Validators.min(10), Validators.max(200)]],
-      taille: ['', [Validators.required, Validators.min(60), Validators.max(250)]],
-      activite: ['', [Validators.required]],
-      objectifCalorique: ['', [Validators.required, Validators.min(0), Validators.max(200)]],
-      besoinsCaloriques: [''],
+      emailCreateur:[''],
+      // genre: ['', [Validators.required]],
+      // poids: ['', [Validators.required, Validators.min(10), Validators.max(200)]],
+      // taille: ['', [Validators.required, Validators.min(60), Validators.max(250)]],
+      // activite: ['', [Validators.required]],
+      // objectifCalorique: ['', [Validators.required, Validators.min(0), Validators.max(200)]],
+      // besoinsCaloriques: [''],
       id: ['']
     });
 
@@ -45,8 +45,8 @@ export class PersonAddComponent implements OnInit {
       this.personForm.controls['prenom'].setValue(this.person?.prenom);
       this.personForm.controls['description'].setValue(this.person?.description);
       this.personForm.controls['dateNaissance'].setValue(this.person?.dateNaissance);
-      this.personForm.controls['id'].setValue(this.person.id);
-      this.personForm.controls['email'].setValue(this._userService.decodedToken.email);
+      // this.personForm.controls['id'].setValue(this.person.id);
+      this.personForm.controls['emailCreateur'].setValue(this._userService.decodedToken.email);
       // this.personForm.controls['genre'].setValue(this.person.genre);
       // this.personForm.controls['poids'].setValue(this.person.poids);
       // this.personForm.controls['taille'].setValue(this.person.taille);
