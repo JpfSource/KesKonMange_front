@@ -17,7 +17,7 @@ const routes: Routes = [
     children: [
       {path: "identity", component: PersonIdentityComponent},
       {path: "morphology", component: PersonMorphologyComponent},
-      {path: "person-plats", component: PersonPlatsComponent},
+      {path: "plats", component: PersonPlatsComponent},
     ],
   },
   {path: "plat",

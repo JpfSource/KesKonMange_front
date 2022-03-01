@@ -1,17 +1,10 @@
-<div *ngIf="person">
-  <div class="myIdentity">
-    <h2>Mon profil</h2>
-  </div>
-  <div class="photoPerson">
-    <img class="profilPhoto" [src]="person?.urlPhoto" alt="Photo de profil" />
-  </div>
 
-  <div class="nameProfil">
-    <h3>{{ getPrenomNom() }}</h3>
-    <p></p>
-  </div>
-  <button class="btn btn-primary m-2" routerLink="identity">Identité</button>
-  <button class="btn btn-primary m-2" routerLink="morphology">Morphologie</button>
-  <button class="btn btn-primary m-2" (click) ="logout()">Se déconnecter</button>
-</div>
+<app-header></app-header>
+
+  <button class="btn btn-success m-2" routerLink="identity">Identité</button>
+  <button class="btn btn-success m-2" routerLink="morphology">Morphologie</button>
+  <button class="btn btn-success m-2" routerLink="plats">Mes plats</button>
+  <button class="btn btn-success m-2" routerLink="">Trouver des aliments</button>
+  <button class="btn btn-success m-2" (click) ="logout()">Se déconnecter</button>
+
 <router-outlet></router-outlet>
