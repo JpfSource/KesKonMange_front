@@ -1,5 +1,3 @@
-import { User } from "./user";
-
 export class Person {
 
   id?: number ;
@@ -16,5 +14,8 @@ export class Person {
   activite?: string;
   description?: string;
   besoinsCaloriques?: number;
-  user?: User;
+  email?: string;
+  pwd?: string;
+  role?: string;
+  roleLibelle?: string;
 }

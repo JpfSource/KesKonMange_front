@@ -53,6 +53,7 @@ export class PersonService implements OnDestroy {
       .pipe(
         tap(person => {
           this.person$.next(person);
+          console.log("Personne récupérée : ", person);
         })
       )
   }
@@ -68,6 +69,7 @@ export class PersonService implements OnDestroy {
       .pipe(
         tap(person => {
           this.person$.next(person);
+          console.log("Personne mise à jour : ", person);
         }
         )
       )
