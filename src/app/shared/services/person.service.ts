@@ -76,6 +76,19 @@ export class PersonService implements OnDestroy {
 
   }
 
+  createPerson(person: Person) {
+    console.log("Personne à enregistrer : ", person);
+    return this._http.post<Person>(this._urlPerson, person, this.httpOptions)
+      .pipe(
+        tap(person => {
+          this.person$.next(person);
+          console.log("Personne mise à jour : ", person);
+        }
+        )
+      )
+
+  }
+
   changeData(person: Person) {
     return this._http
       .put<number>(this._urlPerson + '/recalcul', person, this.httpOptions)

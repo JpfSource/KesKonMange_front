@@ -8,6 +8,7 @@ import { ProfileComponent } from './components/user/profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { PersonMorphologyComponent } from './components/person/person-morphology/person-morphology.component';
 import { PersonComponent } from './components/person/person.component';
+import { PersonAddComponent } from './components/group/person-add.component';
 
 const routes: Routes = [
   {
@@ -19,12 +20,13 @@ const routes: Routes = [
       {path: "morphology", component: PersonMorphologyComponent}
     ],
   },
-  {path:"" , redirectTo: "home", pathMatch:'full'},
+
   {path:"home" , component: HomeComponent},
   { path: "signin", component: AuthComponent },
   { path: "login", component: AuthComponent },
   {path:"profil", component:ProfileComponent},
-  //{path:"user", canActivate:[AuthGuard], component:BoardUserComponent},
+  {path:"user", canActivate:[AuthGuard], component:BoardUserComponent},
+  {path:"createPerson" , component:PersonAddComponent},
   {path:"" , redirectTo: "home", pathMatch:'full'},
 
 ];

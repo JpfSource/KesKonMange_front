@@ -16,6 +16,8 @@ import { BoardUserComponent } from './components/user/board-user/board-user.comp
 import { AuthComponent } from './components/auth/auth.component';
 import { PersonComponent } from './components/person/person.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
+import { PersonAddComponent } from './components/group/person-add.component';
+;
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
     HomeComponent,
     ProfileComponent,
     BoardUserComponent,
-    AuthComponent
+    AuthComponent,
+    PersonAddComponent
   ],
   imports: [
     BrowserModule,

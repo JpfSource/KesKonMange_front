@@ -1,0 +1,267 @@
+<div class="card-body">
+  <form [formGroup]="personForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nom"
+        formControlName="nom"
+        [ngClass]="{
+          'is-invalid':
+            (personForm.get('nom')!.touched ||
+              personForm.get('nom')!.dirty) &&
+            !personForm.get('nom')!.valid
+        }"
+      />
+      <span class="invalid-feedback">
+        <span *ngIf="personForm.get('nom')!.errors?.['required']">
+          Veuillez entrer votre nom.
+        </span>
+        <span *ngIf="personForm.get('nom')!.errors?.['minlength']">
+          Le nom doit avoir au moins 2 caractères.
+        </span>
+        <span *ngIf="personForm.get('nom')!.errors?.['maxlength']">
+          Le nom doit avoir au max 50 caractères.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="prenom">Prénom</label>
+      <input
+        type="text"
+        class="form-control"
+        id="prenom"
+        placeholder="Prenom"
+        formControlName="prenom"
+        [ngClass]="{
+          'is-invalid':
+            (personForm.get('prenom')!.touched ||
+              personForm.get('prenom')!.dirty) &&
+            !personForm.get('prenom')!.valid
+        }"
+      />
+      <span class="invalid-feedback">
+        <span *ngIf="personForm.get('prenom')!.errors?.['required']">
+          Veuillez entrer votre prénom.
+        </span>
+        <span *ngIf="personForm.get('prenom')!.errors?.['minlength']">
+          Le prénom doit avoir au moins 2 caractères.
+        </span>
+        <span *ngIf="personForm.get('prenom')!.errors?.['maxlength']">
+          Le prénom doit avoir au max 50 caractères.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        formControlName="description"
+        [ngClass]="{
+          'is-invalid':
+            (personForm.get('description')!.touched ||
+              personForm.get('description')!.dirty) &&
+            !personForm.get('description')!.valid
+        }"
+      />
+      <span class="invalid-feedback">
+        <span *ngIf="personForm.get('description')!.errors?.['required']">
+          Veuillez entrer votre description.
+        </span>
+        <span *ngIf="personForm.get('description')!.errors?.['minlength']">
+          La description doit avoir au moins 2 caractères.
+        </span>
+        <span *ngIf="personForm.get('description')!.errors?.['maxlength']">
+          La description doit avoir au max 100 caractères.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="dateNaissance">Né(e) le</label>
+      <input
+        type="date"
+        class="form-control"
+        id="dateNaissance"
+        formControlName="dateNaissance"
+        [ngClass]="{
+          'is-invalid':
+            (personForm.get('dateNaissance')!.touched ||
+              personForm.get('dateNaissance')!.dirty) &&
+            !personForm.get('dateNaissance')!.valid
+        }"
+      />
+      <span class="invalid-feedback">
+        <span *ngIf="personForm.get('dateNaissance')!.errors?.['required']">
+          Veuillez entrer votre date de naissance.
+        </span>
+      </span>
+    </div>
+<!-- MORPHOLOGIE -->
+    <div class="form-group">
+      <label for="genre">Genre</label>
+      <select
+        class="form-control form-select"
+        id="genre"
+        (change)="onChangeData()"
+        formControlName="genre"
+        [ngClass]="{
+          'is-invalid':
+            (personForm.get('genre')!.touched ||
+              personForm.get('genre')!.dirty) &&
+            !personForm.get('genre')!.valid
+        }"
+      >
+        <option value="" disabled>Sélectionnez votre genre</option>
+        <option value="FEMININ">Féminin</option>
+        <option value="MASCULIN">Masculin</option>
+      </select>
+      <span class="invalid-feedback">
+        <span *ngIf="personForm.get('genre')!.errors?.['required']">
+          Veuillez entrer votre genre.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="poids">Poids</label>
+      <input
+        type="number"
+        class="form-control"
+        id="poids"
+        (input)="onChangeData()"
+        placeholder="poids"
+        formControlName="poids"
+        [ngClass]="{
+          'is-invalid':
+            (personForm.get('poids')!.touched ||
+              personForm.get('poids')!.dirty) &&
+            !personForm.get('poids')!.valid
+        }"
+      />
+      <span class="invalid-feedback">
+        <span *ngIf="personForm.get('poids')!.errors?.['required']">
+          Veuillez entrer votre poids.
+        </span>
+        <span *ngIf="personForm.get('poids')!.errors?.['min']">
+          Le poids doit être supérieur à 10 kilos.
+        </span>
+        <span *ngIf="personForm.get('poids')!.errors?.['max']">
+          Le poids doit être inférieur à 200 kilos.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="taille">Taille</label>
+      <input
+        type="number"
+        class="form-control"
+        id="taille"
+        (input)="onChangeData()"
+        placeholder="taille"
+        formControlName="taille"
+        [ngClass]="{
+          'is-invalid':
+            (personForm.get('taille')!.touched ||
+              personForm.get('taille')!.dirty) &&
+            !personForm.get('taille')!.valid
+        }"
+      />
+      <span class="invalid-feedback">
+        <span *ngIf="personForm.get('taille')!.errors?.['required']">
+          Veuillez entrer votre taille.
+        </span>
+        <span *ngIf="personForm.get('taille')!.errors?.['min']">
+          La taille doit être supérieure à 60 centimères.
+        </span>
+        <span *ngIf="personForm.get('taille')!.errors?.['max']">
+          La taille doit être inférieure à 250 centimères.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="activite">Activité</label>
+      <select
+        class="form-control form-select"
+        id="activite"
+        (change)="onChangeData()"
+        formControlName="activite"
+        [ngClass]="{
+          'is-invalid':
+            (personForm.get('activite')!.touched ||
+              personForm.get('activite')!.dirty) &&
+            !personForm.get('activite')!.valid
+        }"
+      >
+        <option value="" disabled>Sélectionnez votre activité</option>
+        <option value="SEDENTAIRE">Sédentaire</option>
+        <option value="PEU_ACTIF">Peu actif</option>
+        <option value="ACTIF">Actif</option>
+        <option value="TRES_ACTIF">Très actif</option>
+      </select>
+      <span class="invalid-feedback">
+        <span *ngIf="personForm.get('activite')!.errors?.['required']">
+          Veuillez entrer votre activité.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="objectifCalorique">Objectif Calorique</label>
+      <input
+        type="number"
+        class="form-control"
+        id="objectifCalorique"
+        (input)="onChangeData()"
+        placeholder="objectifCalorique"
+        formControlName="objectifCalorique"
+        [ngClass]="{
+          'is-invalid':
+            (personForm.get('objectifCalorique')!.touched ||
+              personForm.get('objectifCalorique')!.dirty) &&
+            !personForm.get('objectifCalorique')!.valid
+        }"
+      />
+      <span class="invalid-feedback">
+        <span
+          *ngIf="personForm.get('objectifCalorique')!.errors?.['required']"
+        >
+          Veuillez entrer votre objectif calorique.
+        </span>
+        <span *ngIf="personForm.get('objectifCalorique')!.errors?.['min']">
+          L'objectif calorique doit être supérieur à 0%.
+        </span>
+        <span *ngIf="personForm.get('objectifCalorique')!.errors?.['max']">
+          L'objectif calorique doit être inférieur à 200%.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="besoinsCaloriques">Besoins caloriques</label>
+      <input
+        style="pointer-events: none"
+        type="number"
+        class="form-control"
+        id="besoinsCaloriques"
+        placeholder="besoinsCaloriques"
+        formControlName="besoinsCaloriques"
+        readonly
+      />
+    </div>
+
+    <br />
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="!personForm.valid"
+    >
+    Valider
+    </button>
+  </form>
+</div>
+
+
+
+
+
+
