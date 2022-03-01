@@ -13,10 +13,7 @@ export class PlatService {
 
   public plat$ = new BehaviorSubject<Plat>(new Plat());
   selectPlat: any;
-
-  public findAll() {
-    return this._http.get(environment.urlApi + '/api/plats')
-  }
+  url!: string;
 
   public onEditItemEntree() {
     return this._http.get(environment.urlApi)
@@ -47,4 +44,27 @@ export class PlatService {
         this.plat$.next(value);
       })
   }
+
+
+  public findAll() {
+    return this._http.get(environment.urlApi + '/api/plats')
+  }
+
+  public deletePlat(id: number) {
+    console.log(id);
+
+    const url = this._urlPlat + '/' + id;
+    this._http.delete(url).subscribe();
+
+  }
+
+
+  // public deletePlat(id: number) {
+  //   const url = this._urlPlat + '/' + id;
+  //   this._http.delete<Plat>(url);
+  //   console.log(url);
+
+
+  // }
+
 }

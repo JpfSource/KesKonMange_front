@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -13,11 +14,12 @@ export class ItemPlatComponent implements OnInit {
 
   plat!: Plat;
   plats$ = new BehaviorSubject<Plat [] | any>([]);
+  status!: string;
 
   constructor(
     private _platService: PlatService,
     private _route : ActivatedRoute,
-
+    private _http: HttpClient,
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +32,16 @@ export class ItemPlatComponent implements OnInit {
         });
       }
     });
+
+  }
+
+  public deletePlat(): void {
+    // console.log(this.plat);
+    // if ( this.plat != null && this.plat.id > 0) {
+    // this._platService.deletePlat(this.plat?.id)
+    // };
+    this._platService.deletePlat(10);
   }
 
 }
+

@@ -14,7 +14,7 @@ import { PlatService } from 'src/app/shared/services/plat.service';
 export class PersonPlatsComponent implements OnInit {
 
   person!: Person | null;
-  plat!: Plat | null;
+  plat!: Plat;
   plats$ = new BehaviorSubject<Plat [] | any>([]);
   platsFiltres!: Plat[];
 
@@ -25,10 +25,10 @@ export class PersonPlatsComponent implements OnInit {
     private _router : Router
   ) { }
 
-  selectPlat(selected: Plat) {
-    this._platService.selectPlat(selected);
-    this._router.navigate(['/person-plats', selected.id]);
-  }
+  // selectPlat(selected: Plat) {
+  //   this._platService.selectPlat(selected);
+  //   this._router.navigate(['/person-plats', selected.id]);
+  // }
 
   ngOnInit(): void {
     this._route.paramMap.subscribe(param => {
@@ -44,6 +44,8 @@ export class PersonPlatsComponent implements OnInit {
     this._platService.findAll().subscribe(plats => {
       this.plats$.next(plats)
       this.platsFiltres = this.plats$.value;
+      console.log(plats);
+
     })
   }
 
@@ -59,4 +61,10 @@ export class PersonPlatsComponent implements OnInit {
       this.platsFiltres = this.plats$.value;
     }
   }
+
+  public deletePlat(id: number): void {
+    this._platService.deletePlat(id)
+    console.log(id);
+
+    };
 }
