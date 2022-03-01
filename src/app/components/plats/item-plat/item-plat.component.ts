@@ -15,6 +15,7 @@ export class ItemPlatComponent implements OnInit {
   plat!: Plat;
   plats$ = new BehaviorSubject<Plat [] | any>([]);
   status!: string;
+  platId!: number;
 
   constructor(
     private _platService: PlatService,
@@ -24,9 +25,9 @@ export class ItemPlatComponent implements OnInit {
 
   ngOnInit(): void {
     this._route.paramMap.subscribe(param => {
-      const platId = Number(param.get('id'));
-      if(platId != null && platId > 0) {
-        this._platService.getPlatById(platId);
+      this.platId = Number(param.get('id'));
+      if(this.platId != null && this.platId > 0) {
+        this._platService.getPlatById(this.platId);
         this._platService.plat$.subscribe((pl: Plat) => {
           this.plat = pl;
         });
@@ -36,12 +37,9 @@ export class ItemPlatComponent implements OnInit {
   }
 
   public deletePlat(): void {
-    // console.log(this.plat);
-    // if ( this.plat != null && this.plat.id > 0) {
-    // this._platService.deletePlat(this.plat?.id)
-    // };
-    this._platService.deletePlat(10);
-  }
-
+    this._platService.deletePlat(this.platId)
+    }
 }
+
+
 

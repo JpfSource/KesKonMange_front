@@ -1,41 +1,23 @@
-<!-- <div class="entete">
-  <div class="imgEntete">
-    <img [src]="person?.urlPhoto" alt="photo de profil"/>
-  </div>
-
-  <div class="nameEntete">
-    <h3>{{person?.prenom}} {{person?.nom | uppercase}}</h3>
-    <p> {{ person?.description }} </p>
-  </div>
-</div> -->
 
 <div class="plats">
 
-  <div class="listLogoTypePlat">
-    <p> <u>Type de plats:</u> </p>
-      <div class="form-check">
-      <input class="form-check-input" type="radio" name="Type"  value="All" (change)="changeType()" checked />All<br/>
-      <input class="form-check-input" type="radio" name="Type"  value="Entree" (change)="changeType('Entrée')"/>Entrée<br/>
-      <input class="form-check-input" type="radio" name="Type"  value="Plat principal" (change)="changeType('Plat principal')"/>Plat<br/>
-      <input class="form-check-input" type="radio" name="Type"  value="Dessert" (change)="changeType('Dessert')"/>Dessert<br/>
-      <input class="form-check-input" type="radio" name="Type"  value="Laitage" (change)="changeType('Laitage')"/>Laitage<br/>
-      <input class="form-check-input" type="radio" name="Type"  value="Boisson" (change)="changeType('Boisson')"/>Boisson<br/>
-      <input class="form-check-input" type="radio" name="Type"  value="Cereales" (change)="changeType('Céréales')"/>Céréales<br/>
-    </div>
-  </div>
-  <br>
-</div>
-<!--
-<form>
-  <div class="form-group">
+  <form class="form-inline">
+
     <label for="exampleFormControlSelect1">Type de plat: </label>
-    <select class="form-control" id="exampleFormControlSelect1">
-      <input value="Entree" (change)="changeType('Entrée')"/>Entrée
-      <option value="Plat principal" (change)="changeType('Plat principal')">Plat</option>
-      <option value="Dessert" (change)="changeType('Dessert')">Dessert</option>
-    </select>
-  </div>
-</form> -->
+      <select class="form-control" id="exampleFormControlSelect1" #input>
+        <option value="">Tout mes plats</option>
+        <option value="Entree">Entrée</option>
+        <option value="Plat principal">Plat principal</option>
+        <option value="Dessert">Dessert</option>
+        <option value="Laitage">Laitage</option>
+        <option value="Boisson">Boisson</option>
+        <option value="Cereales">Céréales</option>
+      </select>
+    <button type="submit" class="btn btn-success mb-2" (click)="changeType(input.value)">Confirmer</button>
+
+  </form>
+
+  <br>
 
 <table class="table table-bordered tablePlatsUser">
   <thead>
@@ -43,17 +25,15 @@
       <th >Libellé</th>
       <th >Type</th>
       <th >Action</th>
-      <th >Action</th>
     </tr>
   </thead>
   <tbody>
     <tr
     class="dataRow"
-
     *ngFor="let plat of platsFiltres">
       <td>{{ plat?.libelle }} &nbsp;</td>
       <td>{{ plat?.typePlatLibelle }}</td>
-      <td routerLink="/plat/{{ plat?.id }}"><button class="btn btn-warning">Modifier</button>  </td>
+      <td ><button class="btn btn-warning" routerLink="/plat/{{ plat?.id }}">Modifier</button> <button class="btn btn-danger" (click)="deletePlat(plat.id)">Supprimer</button> </td>
     </tr>
     <tr>
   </tbody>

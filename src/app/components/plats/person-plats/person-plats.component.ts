@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Person } from 'src/app/shared/models/person';
@@ -15,8 +15,9 @@ export class PersonPlatsComponent implements OnInit {
 
   person!: Person | null;
   plat!: Plat;
-  plats$ = new BehaviorSubject<Plat [] | any>([]);
+  public plats$ = new BehaviorSubject<Plat [] | any>([]);
   platsFiltres!: Plat[];
+  platId!: number;
 
   constructor(
     private _personService : PersonService,
@@ -42,12 +43,25 @@ export class PersonPlatsComponent implements OnInit {
     });
 
     this._platService.findAll().subscribe(plats => {
-      this.plats$.next(plats)
+      this.plats$.next(plats);
       this.platsFiltres = this.plats$.value;
       console.log(plats);
 
     })
   }
+
+  public deletePlat(id: any): void{
+    this._platService.deletePlat(id).subscribe(() => {
+      this._platService.findAll().subscribe(plats => {
+        this.plats$.next(plats);
+        this.platsFiltres = this.plats$.value;
+        console.log(plats);
+    });
+  });
+}
+
+
+
 
   /**
    * Methode qui permet de filtrer les plats en fonctions du type de plat renseigné
@@ -61,10 +75,4 @@ export class PersonPlatsComponent implements OnInit {
       this.platsFiltres = this.plats$.value;
     }
   }
-
-  public deletePlat(id: number): void {
-    this._platService.deletePlat(id)
-    console.log(id);
-
-    };
 }
