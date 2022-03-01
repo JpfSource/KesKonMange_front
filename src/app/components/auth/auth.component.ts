@@ -34,7 +34,7 @@ export class AuthComponent implements OnInit {
     private _router: Router,
     private _tokenStorage: TokenStorageService
   ) { }
-  
+
   ngOnInit(): void {
     if (this._tokenStorage.getToken()) {
       this.isLoggedIn = true;
@@ -48,6 +48,7 @@ export class AuthComponent implements OnInit {
     if (this._route.snapshot.routeConfig?.path == 'signin') {
       this.signinForm.addControl('prenom', this._fb.control('', [Validators.required, Validators.minLength(2)]));
       this.signinForm.addControl('nom', this._fb.control('', [Validators.required, Validators.minLength(2)]));
+      this.signinForm.addControl('cdu', this._fb.control(false, Validators.requiredTrue));
       this.isSignupFormView = true;
     }
   }
@@ -70,8 +71,6 @@ export class AuthComponent implements OnInit {
           .subscribe({
             next: (data => {
               this._tokenStorage.saveToken(data.accessToken);
-              //this._tokenStorage.saveUser(data);
-
               this.isLoginFailed = false;
               this.isLoggedIn = true;
               this._router.navigateByUrl('/person')

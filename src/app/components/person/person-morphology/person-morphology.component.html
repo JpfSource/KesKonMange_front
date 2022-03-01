@@ -149,6 +149,9 @@
       />
     </div>
     <br />
-    <button type="submit" class="btn btn-success">Valider</button>
+    <div class="alert alert-success text-center" role="alert" *ngIf="message">
+      {{message}}
+    </div>
+    <button type="submit" class="btn btn-success" (click)="goToMainView()">Valider</button>
   </form>
 </div>

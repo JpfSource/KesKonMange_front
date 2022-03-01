@@ -13,6 +13,7 @@ export class PersonIdentityComponent implements OnInit {
 
   identityForm!: FormGroup;
   person!: Person | null;
+  message!: string;
 
   constructor(
     private _fb: FormBuilder,
@@ -42,7 +43,12 @@ export class PersonIdentityComponent implements OnInit {
   submitForm() {
     if (this.identityForm.valid) {
       this._personService.update({ ...this.person, ...this.identityForm.value }).subscribe();
+      this.message = "Modifications enregistrées avec succès !"
     }
+  }
+
+  goToMainView(): void {
+    setTimeout(()=> this._router.navigateByUrl("/person"), 1000);
   }
 
 }

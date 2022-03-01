@@ -14,6 +14,7 @@ export class PersonMorphologyComponent implements OnInit {
 
   morphologyForm!: FormGroup;
   person!: Person | null;
+  message!: string;
 
   constructor(
     private _fb: FormBuilder,
@@ -46,17 +47,17 @@ export class PersonMorphologyComponent implements OnInit {
   }
 
   submitForm() {
-    
+
     if (this.morphologyForm.valid) {
       const p = { ...this.person, ...this.morphologyForm.value };
       this._personService.update(p).subscribe();
+      this.message = "Modifications enregistrées avec succès !"
     }
   }
 
   onChangeData(){
     if (this.morphologyForm.valid) {
       let pers = { ...this.person };
-      console.log("Person avant modif = ", pers);
       pers.genre = this.morphologyForm.value.genre;
       pers.poids = this.morphologyForm.value.poids;
       pers.taille = this.morphologyForm.value.taille;
@@ -66,7 +67,7 @@ export class PersonMorphologyComponent implements OnInit {
     }
   }
 
-  goBack(): void {
-    this._router.navigateByUrl("person/"+ this.person?.id);
+  goToMainView() : void {
+    setTimeout(()=> this._router.navigateByUrl("/person"), 1000);
   }
 }
