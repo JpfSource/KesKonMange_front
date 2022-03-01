@@ -1,0 +1,155 @@
+<div class="card-body">
+  <form [formGroup]="morphologyGpeForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label for="genre">Genre</label>
+      <select
+        class="form-control form-select"
+        id="genre"
+        (change)="onChangeData()"
+        formControlName="genre"
+        [ngClass]="{
+          'is-invalid':
+            (morphologyGpeForm.get('genre')!.touched ||
+              morphologyGpeForm.get('genre')!.dirty) &&
+            !morphologyGpeForm.get('genre')!.valid
+        }"
+      >
+        <option value="" disabled>Sélectionnez votre genre</option>
+        <option value="FEMININ">Féminin</option>
+        <option value="MASCULIN">Masculin</option>
+      </select>
+      <span class="invalid-feedback">
+        <span *ngIf="morphologyGpeForm.get('genre')!.errors?.['required']">
+          Veuillez entrer votre genre.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="poids">Poids</label>
+      <input
+        type="number"
+        class="form-control"
+        id="poids"
+        (input)="onChangeData()"
+        placeholder="poids"
+        formControlName="poids"
+        [ngClass]="{
+          'is-invalid':
+            (morphologyGpeForm.get('poids')!.touched ||
+              morphologyGpeForm.get('poids')!.dirty) &&
+            !morphologyGpeForm.get('poids')!.valid
+        }"
+      />
+      <span class="invalid-feedback">
+        <span *ngIf="morphologyGpeForm.get('poids')!.errors?.['required']">
+          Veuillez entrer votre poids.
+        </span>
+        <span *ngIf="morphologyGpeForm.get('poids')!.errors?.['min']">
+          Le poids doit être supérieur à 10 kilos.
+        </span>
+        <span *ngIf="morphologyGpeForm.get('poids')!.errors?.['max']">
+          Le poids doit être inférieur à 200 kilos.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="taille">Taille</label>
+      <input
+        type="number"
+        class="form-control"
+        id="taille"
+        (input)="onChangeData()"
+        placeholder="taille"
+        formControlName="taille"
+        [ngClass]="{
+          'is-invalid':
+            (morphologyGpeForm.get('taille')!.touched ||
+              morphologyGpeForm.get('taille')!.dirty) &&
+            !morphologyGpeForm.get('taille')!.valid
+        }"
+      />
+      <span class="invalid-feedback">
+        <span *ngIf="morphologyGpeForm.get('taille')!.errors?.['required']">
+          Veuillez entrer votre taille.
+        </span>
+        <span *ngIf="morphologyGpeForm.get('taille')!.errors?.['min']">
+          La taille doit être supérieure à 60 centimères.
+        </span>
+        <span *ngIf="morphologyGpeForm.get('taille')!.errors?.['max']">
+          La taille doit être inférieure à 250 centimères.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="activite">Activité</label>
+      <select
+        class="form-control form-select"
+        id="activite"
+        (change)="onChangeData()"
+        formControlName="activite"
+        [ngClass]="{
+          'is-invalid':
+            (morphologyGpeForm.get('activite')!.touched ||
+              morphologyGpeForm.get('activite')!.dirty) &&
+            !morphologyGpeForm.get('activite')!.valid
+        }"
+      >
+        <option value="" disabled>Sélectionnez votre activité</option>
+        <option value="SEDENTAIRE">Sédentaire</option>
+        <option value="PEU_ACTIF">Peu actif</option>
+        <option value="ACTIF">Actif</option>
+        <option value="TRES_ACTIF">Très actif</option>
+      </select>
+      <span class="invalid-feedback">
+        <span *ngIf="morphologyGpeForm.get('activite')!.errors?.['required']">
+          Veuillez entrer votre activité.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="objectifCalorique">Objectif Calorique</label>
+      <input
+        type="number"
+        class="form-control"
+        id="objectifCalorique"
+        (input)="onChangeData()"
+        placeholder="objectifCalorique"
+        formControlName="objectifCalorique"
+        [ngClass]="{
+          'is-invalid':
+            (morphologyGpeForm.get('objectifCalorique')!.touched ||
+              morphologyGpeForm.get('objectifCalorique')!.dirty) &&
+            !morphologyGpeForm.get('objectifCalorique')!.valid
+        }"
+      />
+      <span class="invalid-feedback">
+        <span
+          *ngIf="morphologyGpeForm.get('objectifCalorique')!.errors?.['required']"
+        >
+          Veuillez entrer votre objectif calorique.
+        </span>
+        <span *ngIf="morphologyGpeForm.get('objectifCalorique')!.errors?.['min']">
+          L'objectif calorique doit être supérieur à 0%.
+        </span>
+        <span *ngIf="morphologyGpeForm.get('objectifCalorique')!.errors?.['max']">
+          L'objectif calorique doit être inférieur à 200%.
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="besoinsCaloriques">Besoins caloriques</label>
+      <input
+        style="pointer-events: none"
+        type="number"
+        class="form-control"
+        id="besoinsCaloriques"
+        placeholder="besoinsCaloriques"
+        formControlName="besoinsCaloriques"
+        readonly
+      />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success">Valider</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="goBack()">Retour</button>
+  </form>
+</div>

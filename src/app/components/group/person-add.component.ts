@@ -30,12 +30,6 @@ export class PersonAddComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
       dateNaissance: ['', Validators.required],
       emailCreateur:[''],
-      // genre: ['', [Validators.required]],
-      // poids: ['', [Validators.required, Validators.min(10), Validators.max(200)]],
-      // taille: ['', [Validators.required, Validators.min(60), Validators.max(250)]],
-      // activite: ['', [Validators.required]],
-      // objectifCalorique: ['', [Validators.required, Validators.min(0), Validators.max(200)]],
-      // besoinsCaloriques: [''],
       id: ['']
     });
 
@@ -45,15 +39,7 @@ export class PersonAddComponent implements OnInit {
       this.personForm.controls['prenom'].setValue(this.person?.prenom);
       this.personForm.controls['description'].setValue(this.person?.description);
       this.personForm.controls['dateNaissance'].setValue(this.person?.dateNaissance);
-      // this.personForm.controls['id'].setValue(this.person.id);
       this.personForm.controls['emailCreateur'].setValue(this._userService.decodedToken.email);
-      // this.personForm.controls['genre'].setValue(this.person.genre);
-      // this.personForm.controls['poids'].setValue(this.person.poids);
-      // this.personForm.controls['taille'].setValue(this.person.taille);
-      // this.personForm.controls['activite'].setValue(this.person.activite);
-      // this.personForm.controls['objectifCalorique'].setValue(this.person.objectifCalorique);
-      // this.personForm.controls['besoinsCaloriques'].setValue(this.person.besoinsCaloriques);
-      // this.personForm.controls['id'].setValue(this.person.id);
     });
   }
 
@@ -64,15 +50,7 @@ export class PersonAddComponent implements OnInit {
     }
   }
 
-  onChangeData(){
-    if (this.personForm.valid) {
-      let pers = { ...this.person };
-      pers.genre = this.personForm.value.genre;
-      pers.poids = this.personForm.value.poids;
-      pers.taille = this.personForm.value.taille;
-      pers.activite = this.personForm.value.activite;
-      pers.objectifCalorique = this.personForm.value.objectifCalorique;
-      this._personService.changeData(pers as Person).subscribe();
-    }
+  goBack(): void {
+    this._router.navigateByUrl('/user')
   }
 }

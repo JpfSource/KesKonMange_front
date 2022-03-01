@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { Person } from 'src/app/shared/models/person';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { PersonService } from 'src/app/shared/services/person.service';
@@ -10,26 +11,24 @@ import { PersonService } from 'src/app/shared/services/person.service';
   styleUrls: ['./board-user.component.scss']
 })
 export class BoardUserComponent implements OnInit {
-  persons!: Person[];
+  persons$ = new BehaviorSubject<Person[]>([]);
 
   constructor(
     private personService: PersonService,
-    private authService : AuthService,
+    private authService: AuthService,
     private _router: Router,
   ) { }
 
   ngOnInit(): void {
     this.personService.getPersonAll().subscribe({
-     next: (persons => {
-      this.persons = persons;
-    }),
-    error: err => {
-      this.persons = JSON.parse(err.error).message;
-    }
-  });
+      next: (persons => {
+        this.persons$.next(persons);
+        console.log(persons);
+      })
+    });
   }
 
-  logout(){
+  logout() {
     this.authService.logout();
     this._router.navigateByUrl('/login');
 

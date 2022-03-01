@@ -15,15 +15,15 @@ export class PersonComponent implements OnInit {
   public person?: Person | null;
 
   constructor(
-    private _personService : PersonService,
+    private _personService: PersonService,
     private _route: ActivatedRoute,
-    private _router : Router,
+    private _router: Router,
     private _tokenStorage: TokenStorageService,
     private _userService: UserService
   ) { }
 
-  getPrenomNom(){
-    return this.person?.prenom +" "+ this.person?.nom?.toUpperCase();
+  getPrenomNom() {
+    return this.person?.prenom + " " + this.person?.nom?.toUpperCase();
   }
 
   ngOnInit(): void {
@@ -33,15 +33,15 @@ export class PersonComponent implements OnInit {
 
     this._route.paramMap.subscribe(param => {
       const personId = this._userService.decodedToken.id;
-      if(personId != null && personId > 0) {
+      if (personId != null && personId > 0) {
         this._personService.getPersonById(personId)
-        .subscribe((p: Person | null) => {
-          this.person = p;
-        });
+          .subscribe((p: Person | null) => {
+            this.person = p;
+          });
       }
       else {
         this._router.navigateByUrl("/home");
       }
     });
   }
-  }
+}

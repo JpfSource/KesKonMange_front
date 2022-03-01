@@ -34,7 +34,7 @@ export class AuthComponent implements OnInit {
     private _router: Router,
     private _tokenStorage: TokenStorageService
   ) { }
-  
+
   ngOnInit(): void {
     if (this._tokenStorage.getToken()) {
       this.isLoggedIn = true;
@@ -70,8 +70,6 @@ export class AuthComponent implements OnInit {
           .subscribe({
             next: (data => {
               this._tokenStorage.saveToken(data.accessToken);
-              this._tokenStorage.saveUser(data);
-
               this.isLoginFailed = false;
               this.isLoggedIn = true;
               this._router.navigateByUrl('/person')
