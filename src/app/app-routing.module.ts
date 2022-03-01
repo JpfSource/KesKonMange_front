@@ -3,11 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './components/auth/auth.component';
 import { HomeComponent } from './components/home/home.component';
 import { PersonIdentityComponent } from './components/person/person-identity/person-identity.component';
-import { BoardUserComponent } from './components/user/board-user/board-user.component';
-import { ProfileComponent } from './components/user/profile/profile.component';
-import { AuthGuard } from './shared/guards/auth.guard';
 import { PersonMorphologyComponent } from './components/person/person-morphology/person-morphology.component';
 import { PersonComponent } from './components/person/person.component';
+import { ItemPlatComponent } from './components/plats/item-plat/item-plat.component';
+import { PersonPlatsComponent } from './components/plats/person-plats/person-plats.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -16,14 +16,18 @@ const routes: Routes = [
     component: PersonComponent,
     children: [
       {path: "identity", component: PersonIdentityComponent},
-      {path: "morphology", component: PersonMorphologyComponent}
+      {path: "morphology", component: PersonMorphologyComponent},
+      {path: "person-plats", component: PersonPlatsComponent},
     ],
   },
-  {path:"" , redirectTo: "home", pathMatch:'full'},
+  {path: "plat",
+    children: [
+      {path: ":id", component: ItemPlatComponent}
+    ]},
   {path:"home" , component: HomeComponent},
   { path: "signin", component: AuthComponent },
   { path: "login", component: AuthComponent },
-  {path:"profil", component:ProfileComponent},
+  // {path:"profil", component:ProfileComponent},
   //{path:"user", canActivate:[AuthGuard], component:BoardUserComponent},
   {path:"" , redirectTo: "home", pathMatch:'full'},
 
