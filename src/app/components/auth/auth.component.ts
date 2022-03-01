@@ -70,7 +70,7 @@ export class AuthComponent implements OnInit {
           .subscribe({
             next: (data => {
               this._tokenStorage.saveToken(data.accessToken);
-              this._tokenStorage.saveUser(data);
+              //this._tokenStorage.saveUser(data);
 
               this.isLoginFailed = false;
               this.isLoggedIn = true;

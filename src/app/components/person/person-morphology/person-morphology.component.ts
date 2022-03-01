@@ -56,6 +56,7 @@ export class PersonMorphologyComponent implements OnInit {
   onChangeData(){
     if (this.morphologyForm.valid) {
       let pers = { ...this.person };
+      console.log("Person avant modif = ", pers);
       pers.genre = this.morphologyForm.value.genre;
       pers.poids = this.morphologyForm.value.poids;
       pers.taille = this.morphologyForm.value.taille;

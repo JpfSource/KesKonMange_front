@@ -53,7 +53,6 @@ export class PersonService implements OnDestroy {
       .pipe(
         tap(person => {
           this.person$.next(person);
-          console.log("Personne récupérée : ", person);
         })
       )
   }
@@ -64,12 +63,10 @@ export class PersonService implements OnDestroy {
    * @param personId
    */
   update(person: Person) {
-    console.log("Personne à mettre à jour : ", person);
     return this._http.put<Person>(this._urlPerson + '/' + person.id, person, this.httpOptions)
       .pipe(
         tap(person => {
           this.person$.next(person);
-          console.log("Personne mise à jour : ", person);
         }
         )
       )
@@ -83,6 +80,8 @@ export class PersonService implements OnDestroy {
         tap(newBC => {
           person.besoinsCaloriques = newBC;
           this.person$.next(person);
+          console.log("Person après modif = ", person);
+
         })
       );
   }
