@@ -52,7 +52,6 @@ export class PlatService {
   }
 
   public deletePlat(id: number) {
-    console.log(id);
     const url = this._urlPlat + '/' + id;
     return this._http.delete(url)
   }

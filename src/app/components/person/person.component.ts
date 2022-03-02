@@ -28,10 +28,7 @@ export class PersonComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._personService.person$.subscribe(p => {
-      this.person = p;
-    })
-
+    this._userService.updateToken();
     this._route.paramMap.subscribe(param => {
       const personId = this._userService.decodedToken.id;
       if(personId != null && personId > 0) {

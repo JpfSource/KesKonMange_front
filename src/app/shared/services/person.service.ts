@@ -5,9 +5,6 @@ import { environment } from 'src/environments/environment';
 import { Person } from '../models/person';
 import { TokenStorageService } from './token-storage.service';
 
-// const httpOptions = {
-//   headers: new HttpHeaders( {'Content-Type': 'application/json'} )
-//   };
 
 @Injectable({
   providedIn: 'root'
@@ -80,8 +77,6 @@ export class PersonService implements OnDestroy {
         tap(newBC => {
           person.besoinsCaloriques = newBC;
           this.person$.next(person);
-          console.log("Person après modif = ", person);
-
         })
       );
   }

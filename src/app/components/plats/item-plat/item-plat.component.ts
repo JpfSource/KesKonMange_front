@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Plat } from 'src/app/shared/models/plat';
@@ -21,6 +22,7 @@ export class ItemPlatComponent implements OnInit {
     private _platService: PlatService,
     private _route : ActivatedRoute,
     private _http: HttpClient,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +40,10 @@ export class ItemPlatComponent implements OnInit {
 
   public deletePlat(): void {
     this._platService.deletePlat(this.platId)
+    }
+
+    goBack(): void {
+      this.location.back();
     }
 }
 

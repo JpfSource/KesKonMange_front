@@ -7,13 +7,23 @@ import { TokenStorageService } from './token-storage.service';
 })
 export class UserService {
 
-  constructor(private tokenStorage: TokenStorageService) { }
-token = this.tokenStorage.getToken()
-helper = new JwtHelperService();
+  token!: any;
+  helper = new JwtHelperService();
+  decodedToken : any;
+  expirationDate : any;
+  isExpired : any;
 
-decodedToken = this.helper.decodeToken(this.token!);
-expirationDate = this.helper.getTokenExpirationDate(this.token!);
-isExpired = this.helper.isTokenExpired(this.token!);
+  constructor(private tokenStorage: TokenStorageService) {
+    this.updateToken();
+   }
+
+
+  updateToken(){
+    this.token = this.tokenStorage.getToken()
+    this.decodedToken = this.helper.decodeToken(this.token!);
+    this.expirationDate = this.helper.getTokenExpirationDate(this.token!);
+    this.isExpired = this.helper.isTokenExpired(this.token!);
+  }
 
 }
 

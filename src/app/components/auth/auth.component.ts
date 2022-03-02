@@ -53,6 +53,7 @@ export class AuthComponent implements OnInit {
   }
 
   submitForm(): void {
+    this._tokenStorage.saveToken("");
     if (this.signinForm.valid) {
       const p = { ...this.person, ...this.signinForm.value }
       if (this.isSignupFormView) {
