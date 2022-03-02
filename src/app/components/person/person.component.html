@@ -1,15 +1,17 @@
 
 <app-header></app-header>
 
-<div class="btnLogOut">
-  <button class="btn btn-warning m-2" (click) ="logout()">Se déconnecter</button>
+<div class="btnNav">
+  <div class="btnLogOut">
+    <button class="btn btn-warning m-2" (click) ="logout()">Se déconnecter</button>
+    <button class="btn btn-warning m-2" (click) ="logout()">Retour</button>
+  </div>
+
+    <button class="btn btn-success m-2" routerLink="identity">Identité</button>
+    <button class="btn btn-success m-2" routerLink="morphology">Morphologie</button>
+    <button class="btn btn-success m-2" routerLink="" disabled>Mon groupe</button>
+    <button class="btn btn-success m-2" routerLink="plats">Mes plats</button>
+    <button class="btn btn-success m-2" routerLink="" disabled>Trouver des aliments</button>
 </div>
-
-  <button class="btn btn-success m-2" routerLink="identity">Identité</button>
-  <button class="btn btn-success m-2" routerLink="morphology">Morphologie</button>
-  <button class="btn btn-success m-2" routerLink="" disabled>Mon groupe</button>
-  <button class="btn btn-success m-2" routerLink="plats">Mes plats</button>
-  <button class="btn btn-success m-2" routerLink="" disabled>Trouver des aliments</button>
-
 
 <router-outlet></router-outlet>
