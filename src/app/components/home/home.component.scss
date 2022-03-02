@@ -11,7 +11,7 @@
  .logo {
    position: relative;
    display: flex;
-   width: 50%;
+   width: 30%;
    align-items: center;
    justify-content: center;
    height: 300px;
@@ -24,11 +24,10 @@
 .btnLog {
   position: relative;
   display: flex;
-  width: 60%;
+  width: 16%;
   justify-content: space-between;
-  margin-left: 15%;
-  margin-top: -10px;
+  margin: 0 auto;
 }
 .btnLogOut {
-  margin-right: 13%;
+  margin-left: 13%;
 }
