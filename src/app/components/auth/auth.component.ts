@@ -23,13 +23,12 @@ export class AuthComponent implements OnInit {
   isLoginFailed = false
   isSuccess = false;
 
-  errorMessage = '';
+  message!: string;
   error!: string;
 
   constructor(
     private _authService: AuthService,
     private _fb: FormBuilder,
-    private _personService: PersonService,
     private _route: ActivatedRoute,
     private _router: Router,
     private _tokenStorage: TokenStorageService
@@ -60,7 +59,8 @@ export class AuthComponent implements OnInit {
         this._authService.signin(p).subscribe({
           next: (() => {
             this.isSuccess = true;
-            this._router.navigateByUrl('/login');
+            this.message = "Inscription réussie !"
+            this.goToLogin();
           }),
           error: err => this.error = err?.error || 'Il y a eu un problème...',
         });
@@ -92,5 +92,11 @@ export class AuthComponent implements OnInit {
     return null;
   }
 
+  /**
+   * Méthode qui permet d'aller à la page Login après inscription.
+   */
+  goToLogin() : void {
+    setTimeout(()=> this._router.navigateByUrl('/login'), 1500);
+  }
 
 }
