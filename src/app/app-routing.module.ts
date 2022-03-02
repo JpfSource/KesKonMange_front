@@ -21,6 +21,7 @@ const routes: Routes = [
     ],
   },
   {path: "plat",
+  canActivate:[AuthGuard],
     children: [
       {path: ":id", component: ItemPlatComponent}
     ]},
@@ -28,7 +29,6 @@ const routes: Routes = [
   { path: "signin", component: AuthComponent },
   { path: "login", component: AuthComponent },
   {path:"" , redirectTo: "home", pathMatch:'full'},
-
 ];
 
 @NgModule({
