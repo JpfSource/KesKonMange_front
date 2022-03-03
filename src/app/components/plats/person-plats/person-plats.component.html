@@ -1,41 +1,41 @@
-
 <div class="plats">
 
-  <form class="form-inline">
-
+  <form class="row">
     <div class="col-4">
+      <label for="">Filtrer par type de plat:</label>
       <select class="form-control" id="filtrePlat" #input (change)="onSelected($any($event.target).value)">
         <option value="">Tous mes plats</option>
-        <option *ngFor="let typePlat of typePlats"
-                [value]="typePlat">{{typePlat}}</option>
+        <option *ngFor="let typePlat of typePlats" [value]="typePlat">{{typePlat}}</option>
       </select>
     </div>
-  </form>
 
+    <app-criteria class="col-4" #filterCriteria (valueChange)="onValueChange($event)"></app-criteria>
+    {{filterCriteria.listFilter}}
+  </form>
   <br>
   <div class="alert alert-danger text-center" role="alert" *ngIf="message">
     {{message}}
   </div>
   <br>
 
-
-<table class="table table-bordered tablePlatsUser" *ngIf="mesPlatsFiltres$ ">
-  <thead>
-    <tr>
-      <th >Libellé</th>
-      <th >Type</th>
-      <th >Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-    class="dataRow"
-    *ngFor="let plat of mesPlatsFiltres$ | async">
-      <td>{{ plat?.libelle }} &nbsp;</td>
-      <td>{{ plat?.typePlatLibelle }}</td>
-      <td ><button class="btn btn-warning" routerLink="/plat/{{ plat?.id }}">Modifier</button> <button class="btn btn-danger" (click)="deletePlat(plat.id)">Supprimer</button> </td>
-    </tr>
-    <tr>
-  </tbody>
-</table>
-
+  <div class="table-responsive">
+    <table class="table table-bordered tablePlatsUser" *ngIf="mesPlatsFiltres$ | async as plats ">
+      <thead>
+        <tr>
+          <th>Libellé</th>
+          <th>Type</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="dataRow" *ngFor="let plat of plats">
+          <td>{{ plat?.libelle }} &nbsp;</td>
+          <td>{{ plat?.typePlatLibelle }}</td>
+          <td><button class="btn btn-warning" routerLink="/plat/{{ plat?.id }}">Modifier</button> <button
+              class="btn btn-danger" (click)="deletePlat(plat.id)">Supprimer</button> </td>
+        </tr>
+        <tr>
+      </tbody>
+    </table>
+  </div>
+</div>
