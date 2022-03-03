@@ -46,9 +46,8 @@ export class PlatService {
       })
   }
 
-
   public findAll() {
-    return this._http.get(environment.urlApi + '/api/plats')
+    return this._http.get<Plat[]>(environment.urlApi + '/api/plats')
   }
 
   public deletePlat(id: number) {

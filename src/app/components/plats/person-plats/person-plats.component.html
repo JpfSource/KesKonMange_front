@@ -3,18 +3,13 @@
 
   <form class="form-inline">
 
-
-      <select class="form-control" id="filtrePlat" #input>
+    <div class="col-4">
+      <select class="form-control" id="filtrePlat" #input (change)="onSelected($any($event.target).value)">
         <option value="">Tous mes plats</option>
-        <option value="Entrée">Entrée</option>
-        <option value="Plat principal">Plat principal</option>
-        <option value="Dessert">Dessert</option>
-        <option value="Laitage">Laitage</option>
-        <option value="Boisson">Boisson</option>
-        <option value="Céréales">Céréales</option>
+        <option *ngFor="let typePlat of typePlats"
+                [value]="typePlat">{{typePlat}}</option>
       </select>
-    <button type="submit" class="btn btn-success mb-2" (click)="changeType(input.value)">Confirmer</button>
-
+    </div>
   </form>
 
   <br>
@@ -24,7 +19,7 @@
   <br>
 
 
-<table class="table table-bordered tablePlatsUser">
+<table class="table table-bordered tablePlatsUser" *ngIf="mesPlatsFiltres$ ">
   <thead>
     <tr>
       <th >Libellé</th>
@@ -35,7 +30,7 @@
   <tbody>
     <tr
     class="dataRow"
-    *ngFor="let plat of platsFiltres">
+    *ngFor="let plat of mesPlatsFiltres$ | async">
       <td>{{ plat?.libelle }} &nbsp;</td>
       <td>{{ plat?.typePlatLibelle }}</td>
       <td ><button class="btn btn-warning" routerLink="/plat/{{ plat?.id }}">Modifier</button> <button class="btn btn-danger" (click)="deletePlat(plat.id)">Supprimer</button> </td>

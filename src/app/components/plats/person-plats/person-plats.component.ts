@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, map, Observable } from 'rxjs';
 import { Person } from 'src/app/shared/models/person';
 import { Plat } from 'src/app/shared/models/plat';
 import { PersonService } from 'src/app/shared/services/person.service';
@@ -16,11 +16,12 @@ export class PersonPlatsComponent implements OnInit {
   filtre!: string;
   person!: Person | null;
   plat!: Plat;
-  public plats$ = new BehaviorSubject<Plat [] | any>([]);
-  platsFiltres!: Plat[];
+  public plats$ = new BehaviorSubject<Plat[]>([]);
   platId!: number;
   message!: string;
+  filtrePlat!: string;
 
+  typePlats:string[] = [ "Entrée","Plat principal","Dessert","Laitage","Boisson","Céréales"]
 
   constructor(
     private _personService : PersonService,
@@ -29,6 +30,28 @@ export class PersonPlatsComponent implements OnInit {
     private _router : Router
   ) { }
 
+private typeSelectedSubject = new BehaviorSubject<string>("");
+typeSelectedAction$ = this.typeSelectedSubject.asObservable();
+
+mesPlatsFiltres$ = combineLatest([
+    this.plats$,
+    this.typeSelectedAction$
+  ])
+  .pipe(
+    map(([plats, selectedType]) =>
+        plats.filter( plat => selectedType ? plat.typePlatLibelle === selectedType : true
+      ))
+  );
+
+  onSelected(typePlatInput: string){
+    this.typeSelectedSubject.next(typePlatInput);
+  }
+
+  getAllPlats(){
+    this._platService.findAll().subscribe(plats => {
+      this.plats$.next(plats);
+     });
+  }
 
   ngOnInit(): void {
     this._route.paramMap.subscribe(param => {
@@ -41,35 +64,26 @@ export class PersonPlatsComponent implements OnInit {
       }
     });
 
-    this._platService.findAll().subscribe(plats => {
-      this.plats$.next(plats);
-      this.platsFiltres = this.plats$.value;
-    })
+    this.getAllPlats();
+
   }
 
-  public deletePlat(id: any): void{
+    public deletePlat(id: any): void{
     this._platService.deletePlat(id).subscribe(() => {
       this.message = "Plat supprimé avec succès !"
-      this._platService.findAll().subscribe(plats => {
-        this.plats$.next(plats);
-        this.platsFiltres = this.plats$.value;
-        this.changeType(this.filtre);
-    });
+      this.getAllPlats();
+      this.mesPlatsFiltres$ = combineLatest([
+        this.plats$,
+        this.typeSelectedAction$
+      ])
+      .pipe(
+        map(([plats, selectedType]) =>
+            plats.filter( plat => selectedType ? plat.typePlatLibelle === selectedType : true
+          ))
+      );
     setTimeout(()=> this.message = "", 2500);
   });
+
 }
 
-  /**
-   * Methode qui permet de filtrer les plats en fonctions du type de plat renseigné
-   * dans le checkbox
-   * @param filter
-   */
-  changeType(filter?: string){
-    if(filter){
-      this.filtre = filter;
-      this.platsFiltres = this.plats$.value.filter((p: any) => p.typePlatLibelle == filter);
-    } else {
-      this.platsFiltres = this.plats$.value;
-    }
-  }
 }
