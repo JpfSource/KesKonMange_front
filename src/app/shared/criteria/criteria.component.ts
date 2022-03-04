@@ -17,7 +17,9 @@ export class CriteriaComponent implements OnInit, AfterViewInit {
   get listFilter() : string {
     return this._listFilter;
   }
-
+  /**
+   * Permet de transmettre la saisie au composant parent
+   */
   set listFilter(value: string){
     this._listFilter = value;
     this.valueChange.emit(value);

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, filter, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { CriteriaComponent } from 'src/app/shared/criteria/criteria.component';
 import { Person } from 'src/app/shared/models/person';
 import { Plat } from 'src/app/shared/models/plat';
@@ -34,6 +34,9 @@ export class PersonPlatsComponent implements OnInit, AfterViewInit {
     private _router: Router
   ) { }
 
+  /**
+   * Méthode qui permet de récupérer dans le composant parent la valeur dans le composant fille (CriteriaComponent)
+   */
   ngAfterViewInit(): void {
     this.parentListFilter = this.filterComponent.listFilter;
   }
@@ -41,6 +44,11 @@ export class PersonPlatsComponent implements OnInit, AfterViewInit {
   private typeSelectedSubject = new BehaviorSubject<string>("");
   typeSelectedAction$ = this.typeSelectedSubject.asObservable();
 
+  /**
+   * Méthode qui permet de filtrer la liste en fonction du type de plat
+   * (select & option de la vue).
+   * @param typePlatInput
+   */
   onSelected(typePlatInput: string) {
     this.typePlatInputSaved = typePlatInput;
     this.mesPlatsFiltres$.next(this.plats$.value);
@@ -53,18 +61,30 @@ export class PersonPlatsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Méthode qui permet de récupérer tous les plats en BdD, en mettant à jour les observables
+   * plats$ et mesPlatsFiltres$.
+   */
   getAllPlats(): void {
     this._platService.findAll().subscribe(plats => {
       this.plats$.next(plats);
       this.mesPlatsFiltres$.next(plats);
-      // this.performFilter(this.parentListFilter);
     });
   }
 
+/**
+ * Méthode qui écoute la saisie dans le champs de recherche et transmet
+ * la value à la méthode de filtre.
+ * @param value
+ */
   onValueChange(value: string): void {
     this.performFilter(value);
   }
 
+  /**
+   * Méthode qui permet de filter les plats en fonction du libellé (saisi dans le champs de recheche).
+   * @param filter
+   */
   performFilter(filter?: string): void {
     if(filter){
       this.mesPlatsFiltres$.next(
@@ -93,6 +113,11 @@ export class PersonPlatsComponent implements OnInit, AfterViewInit {
     this.getAllPlats();
   }
 
+  /**
+   * Méthode qui permet de supprimer un plat sélectionné dans la liste,
+   * elle affiche un message et met à jour la liste une fois le plat supprimé
+   * @param id
+   */
   public deletePlat(id: any): void {
     this._platService.deletePlat(id).subscribe(() => {
       this.message = "Plat supprimé avec succès !"
