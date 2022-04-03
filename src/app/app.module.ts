@@ -16,6 +16,7 @@ import { PersonPlatsComponent } from './components/plats/person-plats/person-pla
 import { BoardUserComponent } from './components/user/board-user/board-user.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { CriteriaComponent } from './shared/criteria/criteria.component';
+import { NavComponent } from './components/nav/nav.component';
 
 
 
@@ -32,7 +33,8 @@ import { CriteriaComponent } from './shared/criteria/criteria.component';
     AuthComponent,
     PersonPlatsComponent,
     ItemPlatComponent,
-    CriteriaComponent
+    CriteriaComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
