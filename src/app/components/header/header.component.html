@@ -1,1 +1,14 @@
-<p>header works!</p>
+<div *ngIf="person" class="header">
+  <div class="myIdentity">
+    <img src="assets/images/logos/logo-kkm-officiel-SansFond.png" alt="logoKKM">
+  </div>
+  <div class="photoPerson">
+    <img class="profilPhoto" [src]="person?.urlPhoto" alt="Photo de profil" />
+  </div>
+
+  <div class="nameProfil">
+    <h3>{{ getPrenomNom() }}</h3>
+    <p></p>
+  </div>
+
+</div>

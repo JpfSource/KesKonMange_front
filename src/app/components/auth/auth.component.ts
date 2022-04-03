@@ -23,18 +23,17 @@ export class AuthComponent implements OnInit {
   isLoginFailed = false
   isSuccess = false;
 
-  errorMessage = '';
+  message!: string;
   error!: string;
 
   constructor(
     private _authService: AuthService,
     private _fb: FormBuilder,
-    private _personService: PersonService,
     private _route: ActivatedRoute,
     private _router: Router,
     private _tokenStorage: TokenStorageService
   ) { }
-  
+
   ngOnInit(): void {
     if (this._tokenStorage.getToken()) {
       this.isLoggedIn = true;
@@ -48,18 +47,21 @@ export class AuthComponent implements OnInit {
     if (this._route.snapshot.routeConfig?.path == 'signin') {
       this.signinForm.addControl('prenom', this._fb.control('', [Validators.required, Validators.minLength(2)]));
       this.signinForm.addControl('nom', this._fb.control('', [Validators.required, Validators.minLength(2)]));
+      this.signinForm.addControl('cdu', this._fb.control(false, Validators.requiredTrue));
       this.isSignupFormView = true;
     }
   }
 
   submitForm(): void {
+    this._tokenStorage.saveToken("");
     if (this.signinForm.valid) {
       const p = { ...this.person, ...this.signinForm.value }
       if (this.isSignupFormView) {
         this._authService.signin(p).subscribe({
           next: (() => {
             this.isSuccess = true;
-            this._router.navigateByUrl('/login');
+            this.message = "Inscription réussie !"
+            this.goToLogin();
           }),
           error: err => this.error = err?.error || 'Il y a eu un problème...',
         });
@@ -70,11 +72,9 @@ export class AuthComponent implements OnInit {
           .subscribe({
             next: (data => {
               this._tokenStorage.saveToken(data.accessToken);
-              this._tokenStorage.saveUser(data);
-
               this.isLoginFailed = false;
               this.isLoggedIn = true;
-              this._router.navigateByUrl('/user')
+              this._router.navigateByUrl('/person')
             }),
             error: err => {
               this.error = err.error;
@@ -93,5 +93,11 @@ export class AuthComponent implements OnInit {
     return null;
   }
 
+  /**
+   * Méthode qui permet d'aller à la page Login après inscription.
+   */
+  goToLogin() : void {
+    setTimeout(()=> this._router.navigateByUrl('/login'), 1500);
+  }
 
 }

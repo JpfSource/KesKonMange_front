@@ -1,21 +1,21 @@
 export class Person {
 
-//  Données de l'écran Identité
+  id?: number ;
   nom!: string;
   prenom!: string;
-  email?:string;
-  pwd?:string;
-  description?: string;
-  dateNaissance!: Date;
+  genreLibelle?: string;
+  genre?: string;
+  dateNaissance?: Date;
+  taille?: number;
+  poids?: number;
+  objectifCalorique?: number;
   urlPhoto?: string;
-
-  // Données de l'écran Morphologie
-  genre!: string;
-  taille!: number;
-  poids!: number;
-  objectifCalorique!: number;
-  activite!: string;
-  besoinsCaloriques!: number;
-  id?: number ;
-
+  activiteLibelle?: string;
+  activite?: string;
+  description?: string;
+  besoinsCaloriques?: number;
+  email?: string;
+  pwd?: string;
+  role?: string;
+  roleLibelle?: string;
 }

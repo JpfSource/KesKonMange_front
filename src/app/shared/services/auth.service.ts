@@ -24,7 +24,7 @@ export class AuthService {
   ) { }
 
   handleError(error: any) {
-    return throwError(error)
+    return throwError(() => error)
   }
 
   /**

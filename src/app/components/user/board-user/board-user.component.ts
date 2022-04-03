@@ -32,7 +32,6 @@ export class BoardUserComponent implements OnInit {
   logout(){
     this.authService.logout();
     this._router.navigateByUrl('/login');
-
   }
 
 }

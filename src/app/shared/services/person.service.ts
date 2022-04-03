@@ -1,13 +1,10 @@
-import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Person } from '../models/person';
 import { TokenStorageService } from './token-storage.service';
 
-// const httpOptions = {
-//   headers: new HttpHeaders( {'Content-Type': 'application/json'} )
-//   };
 
 @Injectable({
   providedIn: 'root'
@@ -49,23 +46,40 @@ export class PersonService implements OnDestroy {
   public getPersonById(personId: number) {
     const url = this._urlPerson + '/' + personId;
 
-    this._http.get<Person>(url)
-      .subscribe(person => {
-        this.person$.next(person);
-      });
+    return this._http.get<Person>(url)
+      .pipe(
+        tap(person => {
+          this.person$.next(person);
+        })
+      )
   }
 
   /**
-   * Métode qui permet de mettre à jour les données du profil d'une personne dont l'id est passé en paramètre.
+   * Méthode qui permet de mettre à jour les données du profil d'une personne dont l'id est passé en paramètre.
    * @param person
    * @param personId
    */
-  updateProfil(person: Person) {
-    const url = this._urlPerson + '/identite/' + person.id;
-    this._http.patch<Person>(url, person)
-      .subscribe(value => {
-        this.person$.next(value);
-      });
+  update(person: Person) {
+    return this._http.put<Person>(this._urlPerson + '/' + person.id, person, this.httpOptions)
+      .pipe(
+        tap(person => {
+          this.person$.next(person);
+        }
+        )
+      )
+
   }
+
+  changeData(person: Person) {
+    return this._http
+      .put<number>(this._urlPerson + '/recalcul', person, this.httpOptions)
+      .pipe(
+        tap(newBC => {
+          person.besoinsCaloriques = newBC;
+          this.person$.next(person);
+        })
+      );
+  }
+
 
 }

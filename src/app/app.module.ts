@@ -1,20 +1,22 @@
-import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { PersonProfilComponent } from './components/person/person-profil/person-profil.component';
-import { PersonMorphoComponent } from './components/person/person-morpho/person-morpho.component';
-import { PersonIdentityComponent } from './components/person/person-identity/person-identity.component';
-import { MenuTabsComponent } from './components/menu-tabs/menu-tabs.component';
-import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './components/home/home.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProfileComponent } from './components/user/profile/profile.component';
-import { BoardUserComponent } from './components/user/board-user/board-user.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { HomeComponent } from './components/home/home.component';
+import { PersonIdentityComponent } from './components/person/person-identity/person-identity.component';
+import { PersonMorphologyComponent } from './components/person/person-morphology/person-morphology.component';
+import { PersonComponent } from './components/person/person.component';
+import { ItemPlatComponent } from './components/plats/item-plat/item-plat.component';
+import { PersonPlatsComponent } from './components/plats/person-plats/person-plats.component';
+import { BoardUserComponent } from './components/user/board-user/board-user.component';
+import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
+import { CriteriaComponent } from './shared/criteria/criteria.component';
+
 
 
 @NgModule({
@@ -22,14 +24,15 @@ import { AuthComponent } from './components/auth/auth.component';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    PersonProfilComponent,
-    PersonMorphoComponent,
+    PersonComponent,
+    PersonMorphologyComponent,
     PersonIdentityComponent,
-    MenuTabsComponent,
     HomeComponent,
-    ProfileComponent,
     BoardUserComponent,
-    AuthComponent
+    AuthComponent,
+    PersonPlatsComponent,
+    ItemPlatComponent,
+    CriteriaComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,7 @@ import { AuthComponent } from './components/auth/auth.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

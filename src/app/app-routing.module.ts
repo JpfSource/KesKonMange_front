@@ -5,25 +5,23 @@ import { AlimentDetailsComponent } from './components/aliment/aliment-details/al
 import { AuthComponent } from './components/auth/auth.component';
 import { HomeComponent } from './components/home/home.component';
 import { PersonIdentityComponent } from './components/person/person-identity/person-identity.component';
-import { PersonMorphoComponent } from './components/person/person-morpho/person-morpho.component';
-import { PersonProfilComponent } from './components/person/person-profil/person-profil.component';
-import { BoardUserComponent } from './components/user/board-user/board-user.component';
-import { ProfileComponent } from './components/user/profile/profile.component';
+import { PersonMorphologyComponent } from './components/person/person-morphology/person-morphology.component';
+import { PersonComponent } from './components/person/person.component';
+import { ItemPlatComponent } from './components/plats/item-plat/item-plat.component';
+import { PersonPlatsComponent } from './components/plats/person-plats/person-plats.component';
 import { AuthGuard } from './shared/guards/auth.guard';
-
-
 
 const routes: Routes = [
   {
     path: "person" ,
+    canActivate:[AuthGuard],
+    component: PersonComponent,
     children: [
-    //permet d'avoir un seul router-outlet
-      {path: ":id", component: PersonProfilComponent},
-      {path: ":id/identity", component: PersonIdentityComponent},
-      {path: ":id/morphology", component: PersonMorphoComponent}
+      {path: "identity", component: PersonIdentityComponent},
+      {path: "morphology", component: PersonMorphologyComponent},
+      {path: "plats", component: PersonPlatsComponent},
     ],
   },
-
   {
     path:"aliments", 
     children: [
@@ -31,14 +29,16 @@ const routes: Routes = [
       {path: ":pId/:aId", component: AlimentDetailsComponent}
     ],
   },
+  {path: "plat",
+  canActivate:[AuthGuard],
+    children: [
+      {path: ":id", component: ItemPlatComponent}
+    ]},
 
   {path:"home" , component: HomeComponent},
   { path: "signin", component: AuthComponent },
   { path: "login", component: AuthComponent },
-  {path:"profil", component:ProfileComponent},
-  {path:"user", canActivate:[AuthGuard], component:BoardUserComponent},
-  {path:"" , redirectTo: "home", pathMatch:'full'},
-
+  {path:"**", redirectTo: "home"}
 ];
 
 @NgModule({

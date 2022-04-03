@@ -1,16 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Person } from 'src/app/shared/models/person';
 import { PersonService } from 'src/app/shared/services/person.service';
+import { Person } from 'src/app/shared/models/person';
 import { UserService } from 'src/app/shared/services/user.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-person',
+  templateUrl: './person.component.html',
+  styleUrls: ['./person.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  @Input() public isLoggedIn!: boolean|null;
+export class PersonComponent implements OnInit {
 
   public person?: Person | null;
 
@@ -19,6 +19,8 @@ export class HeaderComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router : Router,
     private _userService: UserService,
+    private _authService : AuthService,
+
   ) { }
 
   getPrenomNom(){
@@ -26,10 +28,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._personService.person$.subscribe(p => {
-      this.person = p;
-    })
-
+    this._userService.updateToken();
     this._route.paramMap.subscribe(param => {
       const personId = this._userService.decodedToken.id;
       if(personId != null && personId > 0) {
@@ -43,4 +42,11 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
+
+  logout(){
+    this._authService.logout();
+    this._router.navigateByUrl('/home');
+
+  }
+
 }
