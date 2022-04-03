@@ -3,7 +3,6 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router';
 import { Person } from 'src/app/shared/models/person';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { PersonService } from 'src/app/shared/services/person.service';
 import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 
 @Component({
